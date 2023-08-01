@@ -1,7 +1,6 @@
 import "./App.css";
 import UserList from "./UserList";
 import Home from "./Home";
-import { v4 as uuidv4 } from "uuid";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -9,23 +8,18 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import UserDetails from "./UserDetails";
-
-const users = [
-  {
-    first: "Kristie",
-    last: "Patterson",
-    id: uuidv4(),
-  },
-];
+import RootLayout from "./RootLayout";
+import NotFound from "./NotFound";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/">
+    <Route path="/" element={<RootLayout />}>
       <Route index element={<Home />} />
       <Route path="users">
-        <Route index element={<UserList users={users} />} />
+        <Route index element={<UserList />} />
         <Route path=":id" element={<UserDetails />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 );

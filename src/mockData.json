@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "id": "8321c2f8-3007-11ee-be56-0242ac120002",
+      "first": "Kristie",
+      "last": "Patterson",
+      "email": "test@gmail.com",
+      "phone": "7777777777",
+      "vehicle_subs": [],
+      "purchase_history": []
+    },
+    {
+      "id": "fcb14202-bf8b-4f82-81b1-34491d4402e2",
+      "first": "John",
+      "last": "Doe",
+      "email": "test2@gmail.com",
+      "phone": "7777777771",
+      "vehicle_subs": [],
+      "purchase_history": []
+    },
+    {
+      "id": "b4473563-cd22-426d-9101-00e93f5280f1",
+      "first": "Jane",
+      "last": "Smith",
+      "email": "test3@gmail.com",
+      "phone": "7777777772",
+      "vehicle_subs": [],
+      "purchase_history": []
+    },
+    {
+      "id": "9a9217e2-dc7c-4dfe-94d3-194c8d9edec3",
+      "first": "Sarah",
+      "last": "Brown",
+      "email": "test4@gmail.com",
+      "phone": "7777777773",
+      "vehicle_subs": [],
+      "purchase_history": []
+    }
+  ]
+}
