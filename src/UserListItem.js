@@ -1,10 +1,12 @@
+import { Link } from "react-router-dom";
+
 const UserListItem = ({ user }) => {
   return (
-    <div>
+    <Link to={user.id} key={user.id}>
       <p>
         {user.last}, {user.first}
       </p>
-    </div>
+    </Link>
   );
 };
 

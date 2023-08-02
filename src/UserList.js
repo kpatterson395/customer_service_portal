@@ -7,11 +7,7 @@ const UserList = () => {
   return (
     <div>
       {users.map((user) => {
-        return (
-          <Link to={user.id} key={user.id}>
-            <UserListItem user={user} />
-          </Link>
-        );
+        return <UserListItem user={user} />;
       })}
     </div>
   );

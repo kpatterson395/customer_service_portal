@@ -1,5 +1,9 @@
-const UserDetails = () => {
-  return <h1>User details</h1>;
+const UserDetails = ({}) => {
+  return (
+    <div>
+      <h2>User Details</h2>
+    </div>
+  );
 };
 
 export default UserDetails;
