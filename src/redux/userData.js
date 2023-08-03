@@ -10,8 +10,20 @@ export const userDataSlice = createSlice({
         last: "Patterson",
         email: "test@gmail.com",
         phone: "7777777777",
-        vehicle_subs: [],
-        purchase_history: [],
+        vehicle_subs: [
+          {
+            make: "Mazda",
+            model: "cx5",
+            licensePlateNo: "123ABC",
+          },
+        ],
+        purchase_history: [
+          {
+            amount: 5,
+            transactionId: 1,
+            note: "car wash",
+          },
+        ],
       },
       {
         id: "fcb14202-bf8b-4f82-81b1-34491d4402e2",
@@ -19,8 +31,20 @@ export const userDataSlice = createSlice({
         last: "Doe",
         email: "test2@gmail.com",
         phone: "7777777771",
-        vehicle_subs: [],
-        purchase_history: [],
+        vehicle_subs: [
+          {
+            make: "Mazda",
+            model: "cx5",
+            licensePlateNo: "123ABC",
+          },
+        ],
+        purchase_history: [
+          {
+            amount: 5,
+            transactionId: 1,
+            note: "car wash",
+          },
+        ],
       },
     ],
   },

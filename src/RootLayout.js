@@ -14,7 +14,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-
+import "./styles/App.css";
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
@@ -28,70 +28,64 @@ function ResponsiveDrawer(props) {
   const location = useLocation();
   const params = useParams();
 
-  console.log("location", location);
-
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
       <List>
         <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText>
-              <NavLink to="/">Dashboard</NavLink>
-            </ListItemText>
-          </ListItemButton>
+          <NavLink className="link" to="/">
+            <ListItemButton>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText>Dashboard</ListItemText>
+            </ListItemButton>
+          </NavLink>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText>
-              <NavLink to="users">User List</NavLink>
-            </ListItemText>
-          </ListItemButton>
+          <NavLink className="link" to="users">
+            <ListItemButton>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText>User List</ListItemText>
+            </ListItemButton>
+          </NavLink>
         </ListItem>
       </List>
       <Divider />
       {location.pathname.startsWith("/users/") && (
         <List>
           <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <NavLink to="/">Account Information</NavLink>
-              </ListItemText>
-            </ListItemButton>
+            <NavLink className="link" to={`users/${params.id}`}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText>Account Information</ListItemText>
+              </ListItemButton>
+            </NavLink>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <NavLink to={`users/vehicles/${params.id}`}>
-                  Vehicle Subscriptions
-                </NavLink>
-              </ListItemText>
-            </ListItemButton>
+            <NavLink className="link" to={`users/vehicles/${params.id}`}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText>Vehicle Subscriptions</ListItemText>
+              </ListItemButton>
+            </NavLink>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <NavLink to={`users/purchases/${params.id}`}>
-                  Purchase History
-                </NavLink>
-              </ListItemText>
-            </ListItemButton>
+            <NavLink className="link" to={`users/purchases/${params.id}`}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText>Purchase History</ListItemText>
+              </ListItemButton>
+            </NavLink>
           </ListItem>
         </List>
       )}
