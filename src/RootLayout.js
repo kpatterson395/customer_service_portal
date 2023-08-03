@@ -14,6 +14,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+
 import "./styles/App.css";
 const drawerWidth = 240;
 
@@ -27,6 +29,19 @@ function ResponsiveDrawer(props) {
 
   const location = useLocation();
   const params = useParams();
+
+  const pathname = () => {
+    if (location.pathname.startsWith("/users/vehicles")) {
+      return "Vehicle Subscriptions";
+    } else if (location.pathname.startsWith("/users/purchases")) {
+      return "Purchase History";
+    } else if (location.pathname.startsWith("/users/")) {
+      return "Account Information";
+    }
+    return "";
+  };
+
+  console.log(location);
 
   const drawer = (
     <div>
@@ -115,9 +130,9 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          {/* <Typography variant="h6" noWrap component="div">
-            Responsive drawer
-          </Typography> */}
+          <Typography variant="h6" noWrap component="div">
+            {pathname()}
+          </Typography>
         </Toolbar>
       </AppBar>
       <Box
