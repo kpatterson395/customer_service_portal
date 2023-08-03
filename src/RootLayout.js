@@ -1,4 +1,4 @@
-import { Outlet, NavLink } from "react-router-dom";
+import { Outlet, NavLink, useLocation, useParams } from "react-router-dom";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -24,6 +24,11 @@ function ResponsiveDrawer(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const location = useLocation();
+  const params = useParams();
+
+  console.log("location", location);
 
   const drawer = (
     <div>
@@ -52,6 +57,44 @@ function ResponsiveDrawer(props) {
         </ListItem>
       </List>
       <Divider />
+      {location.pathname.startsWith("/users/") && (
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText>
+                <NavLink to="/">Account Information</NavLink>
+              </ListItemText>
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText>
+                <NavLink to={`users/vehicles/${params.id}`}>
+                  Vehicle Subscriptions
+                </NavLink>
+              </ListItemText>
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText>
+                <NavLink to={`users/purchases/${params.id}`}>
+                  Purchase History
+                </NavLink>
+              </ListItemText>
+            </ListItemButton>
+          </ListItem>
+        </List>
+      )}
     </div>
   );
 

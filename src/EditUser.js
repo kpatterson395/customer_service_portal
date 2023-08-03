@@ -1,6 +1,9 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+
 import { useState } from "react";
 import { editUser } from "./redux/userData";
 
@@ -31,39 +34,46 @@ const EditUser = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <Box
+      component="form"
+      sx={{
+        "& .MuiTextField-root": { m: 1, width: "25ch" },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
         <TextField
           required
           id="outlined-required"
-          label="first name"
+          label="First Name"
           value={first}
           onChange={(e) => setFirst(e.target.value)}
         />
         <TextField
           required
           id="outlined-required"
-          label="last name"
+          label="Last Name"
           value={last}
           onChange={(e) => setLast(e.target.value)}
         />
         <TextField
           required
           id="outlined-required"
-          label="phone number"
+          label="Phone Number"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
         />
         <TextField
           required
           id="outlined-required"
-          label="email"
+          label="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <button>Submit Changes</button>
-      </form>
-    </div>
+        <Button onClick={handleSubmit}>Submit Changes</Button>
+      </div>
+    </Box>
   );
 };
 

@@ -11,6 +11,8 @@ import UserDetails from "./UserDetails";
 import RootLayout from "./RootLayout";
 import NotFound from "./NotFound";
 import EditUser from "./EditUser";
+import VehicleSubs from "./VehicleSubs";
+import PurchaseHistory from "./PurchaseHistory";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +22,8 @@ const router = createBrowserRouter(
         <Route index element={<UserList />} />
         <Route path="edit/:id" element={<EditUser />} />
         <Route path=":id" element={<UserDetails />} />
+        <Route path="vehicles/:id" element={<VehicleSubs />} />
+        <Route path="purchases/:id" element={<PurchaseHistory />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Route>

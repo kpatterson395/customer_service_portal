@@ -1,6 +1,8 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { editUser, deleteUser } from "./redux/userData";
+import { deleteUser } from "./redux/userData";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 
 const UserDetails = () => {
   const { id } = useParams();
@@ -22,10 +24,19 @@ const UserDetails = () => {
       </p>
       <p>{user.email}</p>
       <p>{user.phone}</p>
-      <button>
-        <Link to={`/users/edit/${user.id}`}>Edit User</Link>
-      </button>
-      <button onClick={handleDelete}>Delete User</button>
+      <Stack direction="row" spacing={2}>
+        <Button variant="contained" color="success">
+          <Link
+            style={{ textDecoration: "none", color: "white" }}
+            to={`/users/edit/${user.id}`}
+          >
+            Edit User
+          </Link>
+        </Button>
+        <Button variant="outlined" color="error" onClick={handleDelete}>
+          Delete User
+        </Button>
+      </Stack>
     </div>
   );
 };
