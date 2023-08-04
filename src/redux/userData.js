@@ -122,6 +122,17 @@ export const userDataSlice = createSlice({
         id: uuidv4(),
       });
     },
+    transferVehicleSub: ({ users }, { payload }) => {
+      const { currentUser, transferUser, vehicleId } = payload;
+      let currentUserIndex = users.findIndex((x) => x.id === currentUser);
+      let vehicleIndex = users[currentUserIndex].vehicle_subs.findIndex(
+        (x) => x.id === vehicleId
+      );
+      let vehicle = users[currentUserIndex].vehicle_subs[vehicleIndex];
+      users[currentUserIndex].vehicle_subs.splice(vehicleIndex, 1);
+      let transferUserIndex = users.findIndex((x) => x.id === transferUser);
+      users[transferUserIndex].vehicle_subs.push(vehicle);
+    },
   },
 });
 
@@ -136,6 +147,7 @@ export const {
   editPurchaseHistory,
   addPurchase,
   addUser,
+  transferVehicleSub,
 } = userDataSlice.actions;
 
 export default userDataSlice.reducer;

@@ -6,6 +6,7 @@ import {
   editVehicleSub,
 } from "./redux/userData";
 import "./styles/vehicleSubs.css";
+import TransferModal from "./TransferModal";
 import { useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -21,6 +22,8 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
+//modal
+
 const VehicleSubs = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -33,6 +36,13 @@ const VehicleSubs = () => {
   const [newModel, setNewModel] = useState("");
   const [newLicense, setNewLicense] = useState("");
   const [editVehicle, setEditVehicle] = useState({});
+  const [open, setOpen] = useState(false);
+  const [transferVehicle, setTransferVehicle] = useState();
+
+  const handleOpen = (id) => {
+    setTransferVehicle(id);
+    setOpen(true);
+  };
 
   const handleSubmit = () => {
     dispatch(
@@ -132,7 +142,10 @@ const VehicleSubs = () => {
                     <TableCell align="right">{v.model}</TableCell>
                     <TableCell align="right">{v.licensePlateNo}</TableCell>
                     <TableCell>
-                      <PeopleAltIcon className="clickable" />
+                      <PeopleAltIcon
+                        className="clickable"
+                        onClick={() => handleOpen(v.id)}
+                      />
                       <EditIcon
                         className="clickable"
                         onClick={() => setEditVehicle(v)}
@@ -200,6 +213,12 @@ const VehicleSubs = () => {
           <AddCircleOutlineIcon onClick={() => setShowAdd(!showAdd)} />
         )}
       </div>
+      <TransferModal
+        open={open}
+        setOpen={setOpen}
+        currentUser={id}
+        vehicleId={transferVehicle}
+      />
     </div>
   );
 };
