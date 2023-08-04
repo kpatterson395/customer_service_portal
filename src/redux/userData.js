@@ -20,6 +20,7 @@ export const userDataSlice = createSlice({
         ],
         purchase_history: [
           {
+            date: new Date().toDateString(),
             amount: 5,
             transactionId: 1,
             note: "car wash",
@@ -42,6 +43,7 @@ export const userDataSlice = createSlice({
         ],
         purchase_history: [
           {
+            date: new Date().toDateString(),
             amount: 5,
             transactionId: 1,
             note: "car wash",
@@ -65,7 +67,7 @@ export const userDataSlice = createSlice({
       );
       let subs = state.users[foundIndex].vehicle_subs;
       let foundSubIndex = subs.findIndex(
-        (x) => (x.id = action.payload.vehicleId)
+        (x) => x.id === action.payload.vehicleId
       );
       state.users[foundIndex].vehicle_subs.splice(foundSubIndex, 1);
     },
@@ -86,6 +88,25 @@ export const userDataSlice = createSlice({
       );
       user.vehicle_subs[foundVehicleIndex] = payload.editVehicle;
     },
+    deletePurchaseHistory: (state, action) => {
+      let foundIndex = state.users.findIndex(
+        (x) => x.id === action.payload.userId
+      );
+      let subs = state.users[foundIndex].purchase_history;
+      let foundSubIndex = subs.findIndex(
+        (x) => x.transactionId === action.payload.transactionId
+      );
+      state.users[foundIndex].purchase_history.splice(foundSubIndex, 1);
+    },
+    editPurchaseHistory: (state, { payload }) => {
+      let foundIndex = state.users.findIndex((x) => x.id === payload.userId);
+      let user = state.users[foundIndex];
+      let foundSubIndex = user.purchase_history.findIndex(
+        (x) => x.transactionId === payload.editPurchase.transactionId
+      );
+      console.log("found", user.purchase_history[foundSubIndex]);
+      user.purchase_history[foundSubIndex] = payload.editPurchase;
+    },
   },
 });
 
@@ -96,6 +117,8 @@ export const {
   deleteVehicleSub,
   addVehicleSub,
   editVehicleSub,
+  deletePurchaseHistory,
+  editPurchaseHistory,
 } = userDataSlice.actions;
 
 export default userDataSlice.reducer;
