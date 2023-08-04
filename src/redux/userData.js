@@ -50,17 +50,28 @@ export const userDataSlice = createSlice({
   },
   reducers: {
     editUser: (state, action) => {
-      let found = state.users.findIndex((x) => x.id === action.payload.id);
-      state.users[found] = action.payload;
+      let foundIndex = state.users.findIndex((x) => x.id === action.payload.id);
+      state.users[foundIndex] = action.payload;
     },
     deleteUser: (state, action) => {
-      let found = state.users.findIndex((x) => x.id === action.payload);
-      state.users.splice(found, 1);
+      let foundIndex = state.users.findIndex((x) => x.id === action.payload);
+      state.users.splice(foundIndex, 1);
+    },
+    deleteVehicleSub: (state, action) => {
+      let foundIndex = state.users.findIndex(
+        (x) => x.id === action.payload.userId
+      );
+
+      let subs = state.users[foundIndex].vehicle_subs;
+      let foundSubIndex = subs.findIndex(
+        (x) => (x.licensePlateNo = action.payload.licensePlateNo)
+      );
+      state.users[foundIndex].vehicle_subs.splice(foundSubIndex, 1);
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { editUser, deleteUser } = userDataSlice.actions;
+export const { editUser, deleteUser, deleteVehicleSub } = userDataSlice.actions;
 
 export default userDataSlice.reducer;
