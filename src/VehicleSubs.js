@@ -121,36 +121,37 @@ const VehicleSubs = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {user.vehicle_subs.map((v) => {
-              if (v.id === editVehicle.id) {
-                return returnEditable();
-              }
-              return (
-                <TableRow key={v.id}>
-                  <TableCell>{v.make}</TableCell>
-                  <TableCell align="right">{v.model}</TableCell>
-                  <TableCell align="right">{v.licensePlateNo}</TableCell>
-                  <TableCell>
-                    <PeopleAltIcon className="clickable" />
-                    <EditIcon
-                      className="clickable"
-                      onClick={() => setEditVehicle(v)}
-                    />
-                    <DeleteIcon
-                      className="clickable"
-                      onClick={() =>
-                        dispatch(
-                          deleteVehicleSub({
-                            userId: id,
-                            vehicleId: v.id,
-                          })
-                        )
-                      }
-                    />
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+            {user.vehicle_subs &&
+              user.vehicle_subs.map((v) => {
+                if (v.id === editVehicle.id) {
+                  return returnEditable();
+                }
+                return (
+                  <TableRow key={v.id}>
+                    <TableCell>{v.make}</TableCell>
+                    <TableCell align="right">{v.model}</TableCell>
+                    <TableCell align="right">{v.licensePlateNo}</TableCell>
+                    <TableCell>
+                      <PeopleAltIcon className="clickable" />
+                      <EditIcon
+                        className="clickable"
+                        onClick={() => setEditVehicle(v)}
+                      />
+                      <DeleteIcon
+                        className="clickable"
+                        onClick={() =>
+                          dispatch(
+                            deleteVehicleSub({
+                              userId: id,
+                              vehicleId: v.id,
+                            })
+                          )
+                        }
+                      />
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             {showAdd && (
               <TableRow>
                 <TableCell>

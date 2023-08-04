@@ -13,6 +13,8 @@ import NotFound from "./NotFound";
 import EditUser from "./EditUser";
 import VehicleSubs from "./VehicleSubs";
 import PurchaseHistory from "./PurchaseHistory";
+import AddUser from "./AddUser";
+import "./styles/App.css";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +22,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="users">
         <Route index element={<UserList />} />
+        <Route path="add" element={<AddUser />} />
         <Route path="edit/:id" element={<EditUser />} />
         <Route path=":id" element={<UserDetails />} />
         <Route path="vehicles/:id" element={<VehicleSubs />} />

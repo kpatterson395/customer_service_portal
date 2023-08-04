@@ -22,7 +22,7 @@ export const userDataSlice = createSlice({
           {
             date: new Date().toDateString(),
             amount: 5,
-            transactionId: 1,
+            id: 1,
             note: "car wash",
           },
         ],
@@ -45,7 +45,7 @@ export const userDataSlice = createSlice({
           {
             date: new Date().toDateString(),
             amount: 5,
-            transactionId: 1,
+            id: 1,
             note: "car wash",
           },
         ],
@@ -56,6 +56,14 @@ export const userDataSlice = createSlice({
     editUser: (state, action) => {
       let foundIndex = state.users.findIndex((x) => x.id === action.payload.id);
       state.users[foundIndex] = action.payload;
+    },
+    addUser: (state, action) => {
+      state.users.push({
+        ...action.payload,
+        id: uuidv4(),
+        purchase_history: [],
+        vehicle_subs: [],
+      });
     },
     deleteUser: (state, action) => {
       let foundIndex = state.users.findIndex((x) => x.id === action.payload);
@@ -93,16 +101,14 @@ export const userDataSlice = createSlice({
         (x) => x.id === action.payload.userId
       );
       let subs = state.users[foundIndex].purchase_history;
-      let foundSubIndex = subs.findIndex(
-        (x) => x.transactionId === action.payload.transactionId
-      );
+      let foundSubIndex = subs.findIndex((x) => x.id === action.payload.id);
       state.users[foundIndex].purchase_history.splice(foundSubIndex, 1);
     },
     editPurchaseHistory: (state, { payload }) => {
       let foundIndex = state.users.findIndex((x) => x.id === payload.userId);
       let user = state.users[foundIndex];
       let foundSubIndex = user.purchase_history.findIndex(
-        (x) => x.transactionId === payload.editPurchase.transactionId
+        (x) => x.id === payload.editPurchase.id
       );
       console.log("found", user.purchase_history[foundSubIndex]);
       user.purchase_history[foundSubIndex] = payload.editPurchase;
@@ -113,7 +119,7 @@ export const userDataSlice = createSlice({
       );
       state.users[foundIndex].purchase_history.push({
         ...action.payload.newPurchase,
-        transactionId: uuidv4(),
+        id: uuidv4(),
       });
     },
   },
@@ -129,6 +135,7 @@ export const {
   deletePurchaseHistory,
   editPurchaseHistory,
   addPurchase,
+  addUser,
 } = userDataSlice.actions;
 
 export default userDataSlice.reducer;

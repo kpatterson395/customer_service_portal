@@ -39,7 +39,6 @@ const EditUser = () => {
       sx={{
         "& .MuiTextField-root": { m: 1, width: "25ch" },
       }}
-      noValidate
       autoComplete="off"
     >
       <div>
@@ -71,7 +70,7 @@ const EditUser = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <Button onClick={handleSubmit}>Submit Changes</Button>
+        <Button onClick={handleSubmit}>Save Changes</Button>
       </div>
     </Box>
   );

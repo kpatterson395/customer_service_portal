@@ -55,8 +55,8 @@ const PurchaseHistory = () => {
 
   const returnEditable = () => {
     return (
-      <TableRow key={editPurchase.transactionId}>
-        <TableCell>{editPurchase.transactionId}</TableCell>
+      <TableRow key={editPurchase.id}>
+        <TableCell>{editPurchase.id}</TableCell>
         <TableCell>
           <TextField
             required
@@ -121,36 +121,37 @@ const PurchaseHistory = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {user.purchase_history.map((p) => {
-              if (p.transactionId === editPurchase.transactionId) {
-                return returnEditable();
-              }
-              return (
-                <TableRow key={p.transactionId}>
-                  <TableCell>{p.transactionId}</TableCell>
-                  <TableCell align="right">{p.date}</TableCell>
-                  <TableCell align="right">{p.amount}</TableCell>
-                  <TableCell align="right">{p.note}</TableCell>
-                  <TableCell>
-                    <EditIcon
-                      className="clickable"
-                      onClick={() => setEditPurchase(p)}
-                    />
-                    <DeleteIcon
-                      className="clickable"
-                      onClick={() =>
-                        dispatch(
-                          deletePurchaseHistory({
-                            userId: id,
-                            transactionId: p.transactionId,
-                          })
-                        )
-                      }
-                    />
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+            {user.purchase_history &&
+              user.purchase_history.map((p) => {
+                if (p.id === editPurchase.id) {
+                  return returnEditable();
+                }
+                return (
+                  <TableRow key={p.id}>
+                    <TableCell>{p.id}</TableCell>
+                    <TableCell align="right">{p.date}</TableCell>
+                    <TableCell align="right">{p.amount}</TableCell>
+                    <TableCell align="right">{p.note}</TableCell>
+                    <TableCell>
+                      <EditIcon
+                        className="clickable"
+                        onClick={() => setEditPurchase(p)}
+                      />
+                      <DeleteIcon
+                        className="clickable"
+                        onClick={() =>
+                          dispatch(
+                            deletePurchaseHistory({
+                              userId: id,
+                              id: p.id,
+                            })
+                          )
+                        }
+                      />
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             {showAdd && (
               <TableRow>
                 <TableCell>{""}</TableCell>

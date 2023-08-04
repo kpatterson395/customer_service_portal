@@ -46,3 +46,16 @@
 .active {
   background-color: rgba(0, 0, 0, 0.04);
 }
+
+.addUser {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  text-decoration: none;
+  color: #1976d2;
+}
+
+.addUser:hover {
+  cursor: pointer;
+}
