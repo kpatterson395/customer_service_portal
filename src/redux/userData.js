@@ -61,17 +61,23 @@ export const userDataSlice = createSlice({
       let foundIndex = state.users.findIndex(
         (x) => x.id === action.payload.userId
       );
-
       let subs = state.users[foundIndex].vehicle_subs;
       let foundSubIndex = subs.findIndex(
         (x) => (x.licensePlateNo = action.payload.licensePlateNo)
       );
       state.users[foundIndex].vehicle_subs.splice(foundSubIndex, 1);
     },
+    addVehicleSub: (state, action) => {
+      let foundIndex = state.users.findIndex(
+        (x) => x.id === action.payload.userId
+      );
+      state.users[foundIndex].vehicle_subs.push(action.payload.newVehicle);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { editUser, deleteUser, deleteVehicleSub } = userDataSlice.actions;
+export const { editUser, deleteUser, deleteVehicleSub, addVehicleSub } =
+  userDataSlice.actions;
 
 export default userDataSlice.reducer;
