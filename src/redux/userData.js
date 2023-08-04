@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { v4 as uuidv4 } from "uuid";
 export const userDataSlice = createSlice({
   name: "userData",
   initialState: {
@@ -15,6 +15,7 @@ export const userDataSlice = createSlice({
             make: "Mazda",
             model: "cx5",
             licensePlateNo: "123ABC",
+            id: "6794b415-3af9-43f0-ac05-8ae08192cda8",
           },
         ],
         purchase_history: [
@@ -36,6 +37,7 @@ export const userDataSlice = createSlice({
             make: "Mazda",
             model: "cx5",
             licensePlateNo: "123ABC",
+            id: "d72238af-1d60-4718-b8ec-ae4707440981",
           },
         ],
         purchase_history: [
@@ -63,7 +65,7 @@ export const userDataSlice = createSlice({
       );
       let subs = state.users[foundIndex].vehicle_subs;
       let foundSubIndex = subs.findIndex(
-        (x) => (x.licensePlateNo = action.payload.licensePlateNo)
+        (x) => (x.id = action.payload.vehicleId)
       );
       state.users[foundIndex].vehicle_subs.splice(foundSubIndex, 1);
     },
@@ -71,13 +73,29 @@ export const userDataSlice = createSlice({
       let foundIndex = state.users.findIndex(
         (x) => x.id === action.payload.userId
       );
-      state.users[foundIndex].vehicle_subs.push(action.payload.newVehicle);
+      state.users[foundIndex].vehicle_subs.push({
+        ...action.payload.newVehicle,
+        id: uuidv4(),
+      });
+    },
+    editVehicleSub: (state, { payload }) => {
+      let foundIndex = state.users.findIndex((x) => x.id === payload.userId);
+      let user = state.users[foundIndex];
+      let foundVehicleIndex = user.vehicle_subs.findIndex(
+        (x) => x.id === payload.editVehicle.id
+      );
+      user.vehicle_subs[foundVehicleIndex] = payload.editVehicle;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { editUser, deleteUser, deleteVehicleSub, addVehicleSub } =
-  userDataSlice.actions;
+export const {
+  editUser,
+  deleteUser,
+  deleteVehicleSub,
+  addVehicleSub,
+  editVehicleSub,
+} = userDataSlice.actions;
 
 export default userDataSlice.reducer;

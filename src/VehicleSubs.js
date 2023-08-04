@@ -1,6 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteVehicleSub, addVehicleSub } from "./redux/userData";
+import {
+  deleteVehicleSub,
+  addVehicleSub,
+  editVehicleSub,
+} from "./redux/userData";
 import "./styles/vehicleSubs.css";
 import { useState } from "react";
 import Table from "@mui/material/Table";
@@ -16,7 +20,6 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import CloseIcon from "@mui/icons-material/Close";
 
 const VehicleSubs = () => {
   const { id } = useParams();
@@ -29,6 +32,7 @@ const VehicleSubs = () => {
   const [newMake, setNewMake] = useState("");
   const [newModel, setNewModel] = useState("");
   const [newLicense, setNewLicense] = useState("");
+  const [editVehicle, setEditVehicle] = useState({});
 
   const handleSubmit = () => {
     dispatch(
@@ -40,6 +44,67 @@ const VehicleSubs = () => {
           licensePlateNo: newLicense,
         },
       })
+    );
+    setShowAdd(false);
+    setNewMake("");
+    setNewModel("");
+    setNewLicense("");
+  };
+
+  const handleSubmitChanges = () => {
+    dispatch(editVehicleSub({ userId: id, editVehicle }));
+    setEditVehicle({});
+  };
+
+  const returnEditable = () => {
+    return (
+      <TableRow key={editVehicle.id}>
+        <TableCell>
+          <TextField
+            required
+            size="small"
+            id="outlined-required"
+            label="Car make"
+            value={editVehicle.make}
+            onChange={(e) =>
+              setEditVehicle({ ...editVehicle, make: e.target.value })
+            }
+          />
+        </TableCell>
+        <TableCell align="right">
+          <TextField
+            required
+            size="small"
+            id="outlined-required"
+            label="Car Model"
+            value={editVehicle.model}
+            onChange={(e) =>
+              setEditVehicle({ ...editVehicle, model: e.target.value })
+            }
+          />
+        </TableCell>
+        <TableCell align="right">
+          <TextField
+            required
+            size="small"
+            id="outlined-required"
+            label="Car Model"
+            value={editVehicle.licensePlateNo}
+            onChange={(e) =>
+              setEditVehicle({
+                ...editVehicle,
+                licensePlateNo: e.target.value,
+              })
+            }
+          />
+        </TableCell>
+        <TableCell>
+          <Button onClick={handleSubmitChanges}>Submit Changes</Button>
+          <Button color="error" onClick={() => setEditVehicle({})}>
+            Cancel
+          </Button>
+        </TableCell>
+      </TableRow>
     );
   };
 
@@ -56,28 +121,36 @@ const VehicleSubs = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {user.vehicle_subs.map((v) => (
-              <TableRow key={v.licensePlateNo}>
-                <TableCell>{v.make}</TableCell>
-                <TableCell align="right">{v.model}</TableCell>
-                <TableCell align="right">{v.licensePlateNo}</TableCell>
-                <TableCell>
-                  <PeopleAltIcon className="clickable" />
-                  <EditIcon className="clickable" />
-                  <DeleteIcon
-                    className="clickable"
-                    onClick={() =>
-                      dispatch(
-                        deleteVehicleSub({
-                          userId: id,
-                          licensePlateNo: v.licensePlateNo,
-                        })
-                      )
-                    }
-                  />
-                </TableCell>
-              </TableRow>
-            ))}
+            {user.vehicle_subs.map((v) => {
+              if (v.id === editVehicle.id) {
+                return returnEditable();
+              }
+              return (
+                <TableRow key={v.id}>
+                  <TableCell>{v.make}</TableCell>
+                  <TableCell align="right">{v.model}</TableCell>
+                  <TableCell align="right">{v.licensePlateNo}</TableCell>
+                  <TableCell>
+                    <PeopleAltIcon className="clickable" />
+                    <EditIcon
+                      className="clickable"
+                      onClick={() => setEditVehicle(v)}
+                    />
+                    <DeleteIcon
+                      className="clickable"
+                      onClick={() =>
+                        dispatch(
+                          deleteVehicleSub({
+                            userId: id,
+                            vehicleId: v.id,
+                          })
+                        )
+                      }
+                    />
+                  </TableCell>
+                </TableRow>
+              );
+            })}
             {showAdd && (
               <TableRow>
                 <TableCell>
