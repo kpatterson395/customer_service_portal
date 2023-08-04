@@ -15,7 +15,8 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-
+import PeopleIcon from "@mui/icons-material/People";
+import HomeIcon from "@mui/icons-material/Home";
 import "./styles/App.css";
 const drawerWidth = 240;
 
@@ -52,7 +53,7 @@ function ResponsiveDrawer(props) {
           <NavLink className="link" to="/">
             <ListItemButton>
               <ListItemIcon>
-                <InboxIcon />
+                <HomeIcon />
               </ListItemIcon>
               <ListItemText>Dashboard</ListItemText>
             </ListItemButton>
@@ -62,7 +63,7 @@ function ResponsiveDrawer(props) {
           <NavLink className="link" to="users">
             <ListItemButton>
               <ListItemIcon>
-                <InboxIcon />
+                <PeopleIcon />
               </ListItemIcon>
               <ListItemText>User List</ListItemText>
             </ListItemButton>

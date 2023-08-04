@@ -17,11 +17,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-
+import MoveDownIcon from "@mui/icons-material/MoveDown";
 //modal
 
 const VehicleSubs = () => {
@@ -142,7 +141,7 @@ const VehicleSubs = () => {
                     <TableCell align="right">{v.model}</TableCell>
                     <TableCell align="right">{v.licensePlateNo}</TableCell>
                     <TableCell>
-                      <PeopleAltIcon
+                      <MoveDownIcon
                         className="clickable"
                         onClick={() => handleOpen(v.id)}
                       />
