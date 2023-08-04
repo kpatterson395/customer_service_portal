@@ -107,6 +107,15 @@ export const userDataSlice = createSlice({
       console.log("found", user.purchase_history[foundSubIndex]);
       user.purchase_history[foundSubIndex] = payload.editPurchase;
     },
+    addPurchase: (state, action) => {
+      let foundIndex = state.users.findIndex(
+        (x) => x.id === action.payload.userId
+      );
+      state.users[foundIndex].purchase_history.push({
+        ...action.payload.newPurchase,
+        transactionId: uuidv4(),
+      });
+    },
   },
 });
 
@@ -119,6 +128,7 @@ export const {
   editVehicleSub,
   deletePurchaseHistory,
   editPurchaseHistory,
+  addPurchase,
 } = userDataSlice.actions;
 
 export default userDataSlice.reducer;

@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  deletePurchaseHistory,
-  editPurchaseHistory,
-  addPurchase,
+  deleteVehicleSub,
+  addVehicleSub,
+  editVehicleSub,
 } from "./redux/userData";
+import "./styles/vehicleSubs.css";
+import { useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -15,57 +16,58 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-const PurchaseHistory = () => {
+const VehicleSubs = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+
   const { users } = useSelector((state) => state.userData);
   let user = users.find((x) => x.id === id);
 
   const [showAdd, setShowAdd] = useState(false);
-  const [newAmount, setNewAmount] = useState(0);
-  const [newNote, setNewNote] = useState("");
-  const [newDate, setNewDate] = useState("");
-  const [editPurchase, setEditPurchase] = useState({});
+  const [newMake, setNewMake] = useState("");
+  const [newModel, setNewModel] = useState("");
+  const [newLicense, setNewLicense] = useState("");
+  const [editVehicle, setEditVehicle] = useState({});
 
   const handleSubmit = () => {
     dispatch(
-      addPurchase({
+      addVehicleSub({
         userId: id,
-        newPurchase: {
-          amount: newAmount,
-          note: newNote,
-          date: new Date(newDate).toDateString(),
+        newVehicle: {
+          make: newMake,
+          model: newModel,
+          licensePlateNo: newLicense,
         },
       })
     );
     setShowAdd(false);
-    setNewAmount(0);
-    setNewNote("");
-    setNewDate("");
+    setNewMake("");
+    setNewModel("");
+    setNewLicense("");
   };
 
   const handleSubmitChanges = () => {
-    dispatch(editPurchaseHistory({ userId: id, editPurchase }));
-    setEditPurchase({});
+    dispatch(editVehicleSub({ userId: id, editVehicle }));
+    setEditVehicle({});
   };
 
   const returnEditable = () => {
     return (
-      <TableRow key={editPurchase.transactionId}>
-        <TableCell>{editPurchase.transactionId}</TableCell>
+      <TableRow key={editVehicle.id}>
         <TableCell>
           <TextField
             required
             size="small"
             id="outlined-required"
-            label="Date"
-            value={editPurchase.date}
+            label="Car make"
+            value={editVehicle.make}
             onChange={(e) =>
-              setEditPurchase({ ...editPurchase, make: e.target.value })
+              setEditVehicle({ ...editVehicle, make: e.target.value })
             }
           />
         </TableCell>
@@ -74,11 +76,10 @@ const PurchaseHistory = () => {
             required
             size="small"
             id="outlined-required"
-            label="Amount"
-            type="number"
-            value={editPurchase.amount}
+            label="Car Model"
+            value={editVehicle.model}
             onChange={(e) =>
-              setEditPurchase({ ...editPurchase, model: e.target.value })
+              setEditVehicle({ ...editVehicle, model: e.target.value })
             }
           />
         </TableCell>
@@ -87,19 +88,19 @@ const PurchaseHistory = () => {
             required
             size="small"
             id="outlined-required"
-            label="Purchase Note"
-            value={editPurchase.note}
+            label="Car Model"
+            value={editVehicle.licensePlateNo}
             onChange={(e) =>
-              setEditPurchase({
-                ...editPurchase,
-                note: e.target.value,
+              setEditVehicle({
+                ...editVehicle,
+                licensePlateNo: e.target.value,
               })
             }
           />
         </TableCell>
         <TableCell>
           <Button onClick={handleSubmitChanges}>Submit Changes</Button>
-          <Button color="error" onClick={() => setEditPurchase({})}>
+          <Button color="error" onClick={() => setEditVehicle({})}>
             Cancel
           </Button>
         </TableCell>
@@ -113,36 +114,35 @@ const PurchaseHistory = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Transaction ID</TableCell>
-              <TableCell align="right">Date</TableCell>
-              <TableCell align="right">Amount</TableCell>
-              <TableCell align="right">Payment Note</TableCell>
+              <TableCell>Make</TableCell>
+              <TableCell align="right">Model</TableCell>
+              <TableCell align="right">License Plate Number</TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {user.purchase_history.map((p) => {
-              if (p.transactionId === editPurchase.transactionId) {
+            {user.vehicle_subs.map((v) => {
+              if (v.id === editVehicle.id) {
                 return returnEditable();
               }
               return (
-                <TableRow key={p.transactionId}>
-                  <TableCell>{p.transactionId}</TableCell>
-                  <TableCell align="right">{p.date}</TableCell>
-                  <TableCell align="right">{p.amount}</TableCell>
-                  <TableCell align="right">{p.note}</TableCell>
+                <TableRow key={v.id}>
+                  <TableCell>{v.make}</TableCell>
+                  <TableCell align="right">{v.model}</TableCell>
+                  <TableCell align="right">{v.licensePlateNo}</TableCell>
                   <TableCell>
+                    <PeopleAltIcon className="clickable" />
                     <EditIcon
                       className="clickable"
-                      onClick={() => setEditPurchase(p)}
+                      onClick={() => setEditVehicle(v)}
                     />
                     <DeleteIcon
                       className="clickable"
                       onClick={() =>
                         dispatch(
-                          deletePurchaseHistory({
+                          deleteVehicleSub({
                             userId: id,
-                            transactionId: p.transactionId,
+                            vehicleId: v.id,
                           })
                         )
                       }
@@ -153,27 +153,14 @@ const PurchaseHistory = () => {
             })}
             {showAdd && (
               <TableRow>
-                <TableCell>{""}</TableCell>
-                <TableCell align="right">
-                  <TextField
-                    required
-                    type="date"
-                    size="small"
-                    id="outlined-required"
-                    label=""
-                    value={newDate}
-                    onChange={(e) => setNewDate(e.target.value)}
-                  />
-                </TableCell>
-                <TableCell align="right">
+                <TableCell>
                   <TextField
                     required
                     size="small"
-                    type="number"
                     id="outlined-required"
-                    label="Amount"
-                    value={newAmount}
-                    onChange={(e) => setNewAmount(e.target.value)}
+                    label="Car make"
+                    value={newMake}
+                    onChange={(e) => setNewMake(e.target.value)}
                   />
                 </TableCell>
                 <TableCell align="right">
@@ -181,13 +168,23 @@ const PurchaseHistory = () => {
                     required
                     size="small"
                     id="outlined-required"
-                    label="Purchase Note"
-                    value={newNote}
-                    onChange={(e) => setNewNote(e.target.value)}
+                    label="Car Model"
+                    value={newModel}
+                    onChange={(e) => setNewModel(e.target.value)}
+                  />
+                </TableCell>
+                <TableCell align="right">
+                  <TextField
+                    required
+                    size="small"
+                    id="outlined-required"
+                    label="Car License"
+                    value={newLicense}
+                    onChange={(e) => setNewLicense(e.target.value)}
                   />
                 </TableCell>
                 <TableCell>
-                  <Button onClick={handleSubmit}>Add transaction</Button>
+                  <Button onClick={handleSubmit}>Add Vehicle</Button>
                   <Button color="error" onClick={() => setShowAdd(!showAdd)}>
                     Exit
                   </Button>
@@ -206,4 +203,4 @@ const PurchaseHistory = () => {
   );
 };
 
-export default PurchaseHistory;
+export default VehicleSubs;
