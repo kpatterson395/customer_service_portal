@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import "./styles/UserList.css";
 
 const UserList = () => {
   const { users } = useSelector((state) => state.userData);

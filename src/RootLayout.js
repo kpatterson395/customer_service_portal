@@ -42,8 +42,6 @@ function ResponsiveDrawer(props) {
     return "";
   };
 
-  console.log(location);
-
   const drawer = (
     <div>
       <Toolbar />

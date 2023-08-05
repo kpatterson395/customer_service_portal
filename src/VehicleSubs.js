@@ -21,7 +21,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import MoveDownIcon from "@mui/icons-material/MoveDown";
-//modal
+import Tooltip from "@mui/material/Tooltip";
 
 const VehicleSubs = () => {
   const { id } = useParams();
@@ -141,25 +141,33 @@ const VehicleSubs = () => {
                     <TableCell align="right">{v.model}</TableCell>
                     <TableCell align="right">{v.licensePlateNo}</TableCell>
                     <TableCell>
-                      <MoveDownIcon
-                        className="clickable"
-                        onClick={() => handleOpen(v.id)}
-                      />
-                      <EditIcon
-                        className="clickable"
-                        onClick={() => setEditVehicle(v)}
-                      />
-                      <DeleteIcon
-                        className="clickable"
-                        onClick={() =>
-                          dispatch(
-                            deleteVehicleSub({
-                              userId: id,
-                              vehicleId: v.id,
-                            })
-                          )
-                        }
-                      />
+                      <Tooltip title="Transfer Vehicle">
+                        <MoveDownIcon
+                          className="clickable"
+                          onClick={() => handleOpen(v.id)}
+                        />
+                      </Tooltip>
+
+                      <Tooltip title="Edit">
+                        <EditIcon
+                          className="clickable"
+                          onClick={() => setEditVehicle(v)}
+                        />
+                      </Tooltip>
+
+                      <Tooltip title="Delete">
+                        <DeleteIcon
+                          className="clickable"
+                          onClick={() =>
+                            dispatch(
+                              deleteVehicleSub({
+                                userId: id,
+                                vehicleId: v.id,
+                              })
+                            )
+                          }
+                        />
+                      </Tooltip>
                     </TableCell>
                   </TableRow>
                 );

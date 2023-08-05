@@ -18,6 +18,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
 
 const PurchaseHistory = () => {
   const { id } = useParams();
@@ -133,21 +134,25 @@ const PurchaseHistory = () => {
                     <TableCell align="right">{p.amount}</TableCell>
                     <TableCell align="right">{p.note}</TableCell>
                     <TableCell>
-                      <EditIcon
-                        className="clickable"
-                        onClick={() => setEditPurchase(p)}
-                      />
-                      <DeleteIcon
-                        className="clickable"
-                        onClick={() =>
-                          dispatch(
-                            deletePurchaseHistory({
-                              userId: id,
-                              id: p.id,
-                            })
-                          )
-                        }
-                      />
+                      <Tooltip title="Edit">
+                        <EditIcon
+                          className="clickable"
+                          onClick={() => setEditPurchase(p)}
+                        />
+                      </Tooltip>
+                      <Tooltip title="Delete">
+                        <DeleteIcon
+                          className="clickable"
+                          onClick={() =>
+                            dispatch(
+                              deletePurchaseHistory({
+                                userId: id,
+                                id: p.id,
+                              })
+                            )
+                          }
+                        />
+                      </Tooltip>
                     </TableCell>
                   </TableRow>
                 );

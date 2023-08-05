@@ -14,7 +14,6 @@ import EditUser from "./EditUser";
 import VehicleSubs from "./VehicleSubs";
 import PurchaseHistory from "./PurchaseHistory";
 import AddUser from "./AddUser";
-import "./styles/App.css";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
