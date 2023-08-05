@@ -22,6 +22,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import MoveDownIcon from "@mui/icons-material/MoveDown";
 import Tooltip from "@mui/material/Tooltip";
+import DeleteConfirm from "./DeleteConfirm";
 
 const VehicleSubs = () => {
   const { id } = useParams();
@@ -37,6 +38,26 @@ const VehicleSubs = () => {
   const [editVehicle, setEditVehicle] = useState({});
   const [open, setOpen] = useState(false);
   const [transferVehicle, setTransferVehicle] = useState();
+  const [deleteId, setDeleteId] = useState();
+  const [deleteOpen, setDeleteOpen] = useState(false);
+
+  const handleDelete = () => {
+    dispatch(
+      deleteVehicleSub({
+        userId: id,
+        vehicleId: deleteId,
+      })
+    );
+    setDeleteId();
+  };
+
+  const handleDeleteOpen = () => {
+    setDeleteOpen(true);
+  };
+
+  const handleDeleteClose = () => {
+    setDeleteOpen(false);
+  };
 
   const handleOpen = (id) => {
     setTransferVehicle(id);
@@ -158,14 +179,10 @@ const VehicleSubs = () => {
                       <Tooltip title="Delete">
                         <DeleteIcon
                           className="clickable"
-                          onClick={() =>
-                            dispatch(
-                              deleteVehicleSub({
-                                userId: id,
-                                vehicleId: v.id,
-                              })
-                            )
-                          }
+                          onClick={() => {
+                            setDeleteId(v.id);
+                            handleDeleteOpen();
+                          }}
                         />
                       </Tooltip>
                     </TableCell>
@@ -225,6 +242,11 @@ const VehicleSubs = () => {
         setOpen={setOpen}
         currentUser={id}
         vehicleId={transferVehicle}
+      />
+      <DeleteConfirm
+        open={deleteOpen}
+        onClose={handleDeleteClose}
+        handleDelete={handleDelete}
       />
     </div>
   );

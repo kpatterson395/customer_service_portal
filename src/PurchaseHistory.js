@@ -19,6 +19,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
+import DeleteConfirm from "./DeleteConfirm";
 
 const PurchaseHistory = () => {
   const { id } = useParams();
@@ -31,6 +32,26 @@ const PurchaseHistory = () => {
   const [newNote, setNewNote] = useState("");
   const [newDate, setNewDate] = useState("");
   const [editPurchase, setEditPurchase] = useState({});
+  const [deleteId, setDeleteId] = useState();
+  const [deleteOpen, setDeleteOpen] = useState(false);
+
+  const handleDelete = () => {
+    dispatch(
+      deletePurchaseHistory({
+        userId: id,
+        id: deleteId,
+      })
+    );
+    setDeleteId();
+  };
+
+  const handleDeleteOpen = () => {
+    setDeleteOpen(true);
+  };
+
+  const handleDeleteClose = () => {
+    setDeleteOpen(false);
+  };
 
   const handleSubmit = () => {
     dispatch(
@@ -143,14 +164,10 @@ const PurchaseHistory = () => {
                       <Tooltip title="Delete">
                         <DeleteIcon
                           className="clickable"
-                          onClick={() =>
-                            dispatch(
-                              deletePurchaseHistory({
-                                userId: id,
-                                id: p.id,
-                              })
-                            )
-                          }
+                          onClick={() => {
+                            setDeleteId(p.id);
+                            handleDeleteOpen();
+                          }}
                         />
                       </Tooltip>
                     </TableCell>
@@ -208,6 +225,11 @@ const PurchaseHistory = () => {
           <AddCircleOutlineIcon onClick={() => setShowAdd(!showAdd)} />
         )}
       </div>
+      <DeleteConfirm
+        open={deleteOpen}
+        onClose={handleDeleteClose}
+        handleDelete={handleDelete}
+      />
     </div>
   );
 };
