@@ -18,8 +18,6 @@ import Paper from "@mui/material/Paper";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import MoveDownIcon from "@mui/icons-material/MoveDown";
 import Tooltip from "@mui/material/Tooltip";
 import DeleteConfirm from "./DeleteConfirm";
@@ -111,8 +109,8 @@ const VehicleSubs = () => {
                   return (
                     <EditableForm
                       key={v.id}
-                      editVehicle={editVehicle}
-                      setEditVehicle={setEditVehicle}
+                      editItems={editVehicle}
+                      setEditItems={setEditVehicle}
                       handleSubmitChanges={handleSubmitChanges}
                     />
                   );

@@ -20,6 +20,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import DeleteConfirm from "./DeleteConfirm";
+import EditableForm from "./EditableForm";
 
 const PurchaseHistory = () => {
   const { id } = useParams();
@@ -71,62 +72,10 @@ const PurchaseHistory = () => {
   };
 
   const handleSubmitChanges = () => {
-    dispatch(editPurchaseHistory({ userId: id, editPurchase }));
-    setEditPurchase({});
-  };
-
-  const returnEditable = () => {
-    return (
-      <TableRow key={editPurchase.id}>
-        <TableCell>{editPurchase.id}</TableCell>
-        <TableCell>
-          <TextField
-            required
-            size="small"
-            id="outlined-required"
-            label="Date"
-            value={editPurchase.date}
-            onChange={(e) =>
-              setEditPurchase({ ...editPurchase, make: e.target.value })
-            }
-          />
-        </TableCell>
-        <TableCell align="right">
-          <TextField
-            required
-            size="small"
-            id="outlined-required"
-            label="Amount"
-            type="number"
-            value={editPurchase.amount}
-            onChange={(e) =>
-              setEditPurchase({ ...editPurchase, model: e.target.value })
-            }
-          />
-        </TableCell>
-        <TableCell align="right">
-          <TextField
-            required
-            size="small"
-            id="outlined-required"
-            label="Purchase Note"
-            value={editPurchase.note}
-            onChange={(e) =>
-              setEditPurchase({
-                ...editPurchase,
-                note: e.target.value,
-              })
-            }
-          />
-        </TableCell>
-        <TableCell>
-          <Button onClick={handleSubmitChanges}>Submit Changes</Button>
-          <Button color="error" onClick={() => setEditPurchase({})}>
-            Cancel
-          </Button>
-        </TableCell>
-      </TableRow>
-    );
+    if (editPurchase.amount && editPurchase.note && editPurchase.date) {
+      dispatch(editPurchaseHistory({ userId: id, editPurchase }));
+      setEditPurchase({});
+    }
   };
 
   return (
@@ -146,7 +95,14 @@ const PurchaseHistory = () => {
             {user.purchase_history &&
               user.purchase_history.map((p) => {
                 if (p.id === editPurchase.id) {
-                  return returnEditable();
+                  return (
+                    <EditableForm
+                      key={p.id}
+                      editItems={editPurchase}
+                      setEditItems={setEditPurchase}
+                      handleSubmitChanges={handleSubmitChanges}
+                    />
+                  );
                 }
                 return (
                   <TableRow key={p.id}>
