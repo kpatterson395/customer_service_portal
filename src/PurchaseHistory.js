@@ -58,9 +58,9 @@ const PurchaseHistory = () => {
       addPurchase({
         userId: id,
         newPurchase: {
+          date: new Date(newDate).toDateString(),
           amount: newAmount,
           note: newNote,
-          date: new Date(newDate).toDateString(),
         },
       })
     );

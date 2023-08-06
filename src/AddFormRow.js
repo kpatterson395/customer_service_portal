@@ -2,6 +2,7 @@ import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { capitalizeFirst } from "./helpers";
 
 const AddFormRow = ({ formType, items, handleSubmit, setShowAdd, showAdd }) => {
   let keys = Object.keys(items);
@@ -13,12 +14,12 @@ const AddFormRow = ({ formType, items, handleSubmit, setShowAdd, showAdd }) => {
         if (key === "date") type = "date";
 
         return (
-          <TableCell key={key}>
+          <TableCell key={key} align="right">
             <TextField
               size="small"
               id="outlined-required"
               type={type}
-              label={key}
+              label={key !== "date" && capitalizeFirst(key)}
               value={items[key].value}
               error={!items[key].value}
               onChange={(e) => items[key].fn(e.target.value)}

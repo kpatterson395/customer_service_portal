@@ -2,6 +2,7 @@ import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { capitalizeFirst } from "./helpers";
 
 const EditableForm = ({ editItems, setEditItems, handleSubmitChanges }) => {
   let items = Object.keys(editItems).filter((x) => x !== "id");
@@ -13,12 +14,12 @@ const EditableForm = ({ editItems, setEditItems, handleSubmitChanges }) => {
         if (item === "amount") type = "number";
         if (item === "date") type = "date";
         return (
-          <TableCell key={item}>
+          <TableCell key={item} align="right">
             <TextField
               size="small"
               id="outlined-required"
               type={type}
-              label={item}
+              label={capitalizeFirst(item)}
               value={editItems[item]}
               error={editItems[item].length < 1}
               onChange={(e) =>
