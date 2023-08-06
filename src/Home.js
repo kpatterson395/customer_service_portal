@@ -25,7 +25,7 @@ const Home = () => {
       <div>
         <h2>FAQ</h2>
         <Stack direction="row" spacing={1}>
-          <Chip label="Find a user" component={Link} to="/users" clickable />
+          <Chip label="Find a user" component={Link} to="/userlist" clickable />
           <Chip
             label="How do I cancel a user?"
             onClick={() => setShowData("cancel")}

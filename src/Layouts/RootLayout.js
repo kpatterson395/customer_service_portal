@@ -1,8 +1,8 @@
-import { Outlet, NavLink, useLocation } from "react-router-dom";
+import { Outlet, NavLink, useLocation, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
@@ -28,14 +28,15 @@ function ResponsiveDrawer(props) {
   };
 
   const location = useLocation();
+  const params = useParams();
+  const { users } = useSelector((state) => state.userData);
 
   const pathname = () => {
-    if (location.pathname.startsWith("/users/vehicles")) {
-      return "Vehicle Subscriptions";
-    } else if (location.pathname.startsWith("/users/purchases")) {
-      return "Purchase History";
-    } else if (location.pathname.startsWith("/users/")) {
-      return "Account Information";
+    if (location.pathname.startsWith("/userlist")) {
+      return "Users";
+    } else if (location.pathname.startsWith("/users") && params.id) {
+      let user = users.find((x) => x.id === params.id);
+      return `Account: ${user.first} ${user.last}`;
     }
     return "";
   };
@@ -61,7 +62,7 @@ function ResponsiveDrawer(props) {
               <ListItemIcon>
                 <PeopleIcon />
               </ListItemIcon>
-              <ListItemText>User List</ListItemText>
+              <ListItemText>Users</ListItemText>
             </ListItemButton>
           </NavLink>
         </ListItem>
@@ -75,7 +76,6 @@ function ResponsiveDrawer(props) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
@@ -103,7 +103,6 @@ function ResponsiveDrawer(props) {
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
           variant="temporary"

@@ -21,10 +21,10 @@ const UserList = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Last Name</TableCell>
-              <TableCell>First Name</TableCell>
-              <TableCell>User Id</TableCell>
-              <TableCell>{""}</TableCell>
+              <TableCell className="header">Last Name</TableCell>
+              <TableCell className="header">First Name</TableCell>
+              <TableCell className="header">User Id</TableCell>
+              <TableCell className="header">{""}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
