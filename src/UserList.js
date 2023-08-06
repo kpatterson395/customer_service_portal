@@ -8,6 +8,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import Button from "@mui/material/Button";
+
 import "./styles/UserList.css";
 
 const UserList = () => {
@@ -22,6 +24,7 @@ const UserList = () => {
               <TableCell>Last Name</TableCell>
               <TableCell>First Name</TableCell>
               <TableCell>User Id</TableCell>
+              <TableCell>{""}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -29,7 +32,7 @@ const UserList = () => {
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 component={Link}
-                to={user.id}
+                to={`/users/${user.id}`}
                 className="link"
                 key={user.id}
               >
@@ -39,6 +42,9 @@ const UserList = () => {
                 <TableCell>{user.first}</TableCell>
                 <TableCell component="th" scope="row">
                   {user.id}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  <Button variant="text">See details</Button>
                 </TableCell>
               </TableRow>
             ))}

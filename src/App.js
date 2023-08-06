@@ -8,19 +8,20 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import UserDetails from "./UserDetails";
-import RootLayout from "./RootLayout";
+import RootLayout from "./Layouts/RootLayout";
 import NotFound from "./NotFound";
 import EditUser from "./EditUser";
 import VehicleSubs from "./VehicleSubs";
 import PurchaseHistory from "./PurchaseHistory";
 import AddUser from "./AddUser";
+import UsersLayout from "./Layouts/UsersLayout";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<Home />} />
-      <Route path="users">
-        <Route index element={<UserList />} />
+      <Route path="userlist" element={<UserList />} />
+      <Route path="users" element={<UsersLayout />}>
         <Route path="add" element={<AddUser />} />
         <Route path="edit/:id" element={<EditUser />} />
         <Route path=":id" element={<UserDetails />} />

@@ -1,4 +1,4 @@
-import { Outlet, NavLink, useLocation, useParams } from "react-router-dom";
+import { Outlet, NavLink, useLocation } from "react-router-dom";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -6,7 +6,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -17,7 +16,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import PeopleIcon from "@mui/icons-material/People";
 import HomeIcon from "@mui/icons-material/Home";
-import "./styles/App.css";
+import "../styles/App.css";
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
@@ -29,7 +28,6 @@ function ResponsiveDrawer(props) {
   };
 
   const location = useLocation();
-  const params = useParams();
 
   const pathname = () => {
     if (location.pathname.startsWith("/users/vehicles")) {
@@ -58,7 +56,7 @@ function ResponsiveDrawer(props) {
           </NavLink>
         </ListItem>
         <ListItem disablePadding>
-          <NavLink className="link" to="users">
+          <NavLink className="link" to="userlist">
             <ListItemButton>
               <ListItemIcon>
                 <PeopleIcon />
@@ -69,41 +67,6 @@ function ResponsiveDrawer(props) {
         </ListItem>
       </List>
       <Divider />
-      {location.pathname.startsWith("/users/") &&
-        location.pathname.length > 20 && (
-          <List>
-            <ListItem disablePadding>
-              <NavLink className="link" to={`users/${params.id}`}>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <InboxIcon />
-                  </ListItemIcon>
-                  <ListItemText>Account Information</ListItemText>
-                </ListItemButton>
-              </NavLink>
-            </ListItem>
-            <ListItem disablePadding>
-              <NavLink className="link" to={`users/vehicles/${params.id}`}>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <InboxIcon />
-                  </ListItemIcon>
-                  <ListItemText>Vehicle Subscriptions</ListItemText>
-                </ListItemButton>
-              </NavLink>
-            </ListItem>
-            <ListItem disablePadding>
-              <NavLink className="link" to={`users/purchases/${params.id}`}>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <InboxIcon />
-                  </ListItemIcon>
-                  <ListItemText>Purchase History</ListItemText>
-                </ListItemButton>
-              </NavLink>
-            </ListItem>
-          </List>
-        )}
     </div>
   );
 

@@ -30,9 +30,8 @@ const UserDetails = () => {
 
   return (
     <div>
-      <h2>User Details:</h2>
       <p>
-        {user.last},{user.first}
+        {user.last}, {user.first}
       </p>
       <p>{user.email}</p>
       <p>{user.phone}</p>
