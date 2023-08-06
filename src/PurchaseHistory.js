@@ -129,6 +129,7 @@ const PurchaseHistory = () => {
               })}
             {showAdd && (
               <AddFormRow
+                formType="Purchase"
                 items={{
                   date: { value: newDate, fn: setNewDate },
                   amount: { value: newAmount, fn: setNewAmount },

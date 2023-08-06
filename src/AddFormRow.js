@@ -3,7 +3,7 @@ import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-const AddFormRow = ({ items, handleSubmit, setShowAdd, showAdd }) => {
+const AddFormRow = ({ formType, items, handleSubmit, setShowAdd, showAdd }) => {
   let keys = Object.keys(items);
   return (
     <TableRow>
@@ -29,7 +29,7 @@ const AddFormRow = ({ items, handleSubmit, setShowAdd, showAdd }) => {
       })}
 
       <TableCell>
-        <Button onClick={handleSubmit}>Add Vehicle</Button>
+        <Button onClick={handleSubmit}>Add {formType}</Button>
         <Button color="error" onClick={() => setShowAdd(!showAdd)}>
           Exit
         </Button>

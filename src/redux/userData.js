@@ -100,10 +100,16 @@ export const userDataSlice = createSlice({
       let foundIndex = state.users.findIndex(
         (x) => x.id === action.payload.userId
       );
-      state.users[foundIndex].vehicle_subs.push({
-        ...action.payload.newVehicle,
-        id: uuidv4(),
-      });
+      if (state.users[foundIndex].vehicle_subs) {
+        state.users[foundIndex].vehicle_subs.push({
+          ...action.payload.newVehicle,
+          id: uuidv4(),
+        });
+      } else {
+        state.users[foundIndex].vehicle_subs = [
+          { ...action.payload.newVehicle, id: uuidv4() },
+        ];
+      }
     },
     editVehicleSub: (state, { payload }) => {
       let foundIndex = state.users.findIndex((x) => x.id === payload.userId);
@@ -133,10 +139,19 @@ export const userDataSlice = createSlice({
       let foundIndex = state.users.findIndex(
         (x) => x.id === action.payload.userId
       );
-      state.users[foundIndex].purchase_history.push({
-        ...action.payload.newPurchase,
-        id: uuidv4(),
-      });
+      if (state.users[foundIndex].purchase_history) {
+        state.users[foundIndex].purchase_history.push({
+          ...action.payload.newPurchase,
+          id: uuidv4(),
+        });
+      } else {
+        state.users[foundIndex].purchase_history = [
+          {
+            ...action.payload.newPurchase,
+            id: uuidv4(),
+          },
+        ];
+      }
     },
     transferVehicleSub: ({ users }, { payload }) => {
       const { currentUser, transferUser, vehicleId } = payload;

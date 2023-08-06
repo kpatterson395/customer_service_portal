@@ -150,6 +150,7 @@ const VehicleSubs = () => {
               })}
             {showAdd && (
               <AddFormRow
+                formType="Vehicle"
                 items={{
                   make: { value: newMake, fn: setNewMake },
                   model: { value: newModel, fn: setNewModel },
