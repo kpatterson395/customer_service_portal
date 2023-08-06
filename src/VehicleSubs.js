@@ -150,12 +150,11 @@ const VehicleSubs = () => {
               })}
             {showAdd && (
               <AddFormRow
-                newMake={newMake}
-                setNewMake={setNewMake}
-                newModel={newModel}
-                setNewModel={setNewModel}
-                newLicense={newLicense}
-                setNewLicense={setNewLicense}
+                items={{
+                  make: { value: newMake, fn: setNewMake },
+                  model: { value: newModel, fn: setNewModel },
+                  license: { value: newLicense, fn: setNewLicense },
+                }}
                 handleSubmit={handleSubmit}
                 setShowAdd={setShowAdd}
                 showAdd={showAdd}

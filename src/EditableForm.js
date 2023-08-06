@@ -15,7 +15,6 @@ const EditableForm = ({ editItems, setEditItems, handleSubmitChanges }) => {
         return (
           <TableCell key={item}>
             <TextField
-              required
               size="small"
               id="outlined-required"
               type={type}

@@ -3,55 +3,31 @@ import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-const AddFormRow = ({
-  newMake,
-  setNewMake,
-  newModel,
-  setNewModel,
-  newLicense,
-  setNewLicense,
-  handleSubmit,
-  setShowAdd,
-  showAdd,
-}) => {
+const AddFormRow = ({ items, handleSubmit, setShowAdd, showAdd }) => {
+  let keys = Object.keys(items);
   return (
     <TableRow>
-      <TableCell>
-        <TextField
-          required
-          size="small"
-          id="outlined-required"
-          label="Car make"
-          value={newMake}
-          error={newMake.length < 1}
-          onChange={(e) => setNewMake(e.target.value)}
-          helperText={newMake.length < 1 && "This is a required field."}
-        />
-      </TableCell>
-      <TableCell align="right">
-        <TextField
-          required
-          size="small"
-          id="outlined-required"
-          label="Car Model"
-          value={newModel}
-          error={newModel.length < 1}
-          onChange={(e) => setNewModel(e.target.value)}
-          helperText={newModel.length < 1 && "This is a required field."}
-        />
-      </TableCell>
-      <TableCell align="right">
-        <TextField
-          required
-          size="small"
-          id="outlined-required"
-          label="Car License"
-          value={newLicense}
-          error={newLicense.length < 1}
-          onChange={(e) => setNewLicense(e.target.value)}
-          helperText={newLicense.length < 1 && "This is a required field."}
-        />
-      </TableCell>
+      {keys.map((key) => {
+        let type = "text";
+        if (key === "amount") type = "number";
+        if (key === "date") type = "date";
+
+        return (
+          <TableCell key={key}>
+            <TextField
+              size="small"
+              id="outlined-required"
+              type={type}
+              label={key}
+              value={items[key].value}
+              error={!items[key].value}
+              onChange={(e) => items[key].fn(e.target.value)}
+              helperText={!items[key].value && "This is a required field."}
+            />
+          </TableCell>
+        );
+      })}
+
       <TableCell>
         <Button onClick={handleSubmit}>Add Vehicle</Button>
         <Button color="error" onClick={() => setShowAdd(!showAdd)}>
