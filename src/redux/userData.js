@@ -56,7 +56,12 @@ export const userDataSlice = createSlice({
   reducers: {
     editUser: (state, action) => {
       let foundIndex = state.users.findIndex((x) => x.id === action.payload.id);
-      state.users[foundIndex] = action.payload;
+      let currentUser = state.users[foundIndex];
+      state.users[foundIndex] = {
+        ...action.payload,
+        vehicle_subs: currentUser.vehicle_subs,
+        purchase_history: currentUser.purchase_history,
+      };
     },
     addUser: (state, action) => {
       let users = state.users;
@@ -142,7 +147,11 @@ export const userDataSlice = createSlice({
       let vehicle = users[currentUserIndex].vehicle_subs[vehicleIndex];
       users[currentUserIndex].vehicle_subs.splice(vehicleIndex, 1);
       let transferUserIndex = users.findIndex((x) => x.id === transferUser);
-      users[transferUserIndex].vehicle_subs.push(vehicle);
+      if (users[transferUserIndex].vehicle_subs) {
+        users[transferUserIndex].vehicle_subs.push(vehicle);
+      } else {
+        users[transferUserIndex].vehicle_subs = [vehicle];
+      }
     },
   },
 });
