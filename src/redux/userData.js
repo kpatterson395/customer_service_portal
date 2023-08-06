@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
+
 export const userDataSlice = createSlice({
   name: "userData",
   initialState: {
@@ -110,7 +111,6 @@ export const userDataSlice = createSlice({
       let foundSubIndex = user.purchase_history.findIndex(
         (x) => x.id === payload.editPurchase.id
       );
-      console.log("found", user.purchase_history[foundSubIndex]);
       user.purchase_history[foundSubIndex] = payload.editPurchase;
     },
     addPurchase: (state, action) => {
@@ -136,7 +136,6 @@ export const userDataSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const {
   editUser,
   deleteUser,
