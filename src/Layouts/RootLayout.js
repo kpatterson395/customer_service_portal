@@ -47,7 +47,7 @@ function ResponsiveDrawer(props) {
     <div>
       <Toolbar />
       <Divider />
-      <List>
+      <List disablePadding>
         <ListItem disablePadding>
           <NavLink className="link" to="/">
             <ListItemButton>
