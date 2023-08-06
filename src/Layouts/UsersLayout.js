@@ -1,15 +1,22 @@
-import { useState } from "react";
-import { Outlet, NavLink, useParams } from "react-router-dom";
+import { Outlet, NavLink, useParams, useLocation } from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import "../styles/UsersLayout.css";
 
 export default function UsersLayout() {
   const params = useParams();
-  const [value, setValue] = useState(0);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const location = useLocation();
+
+  const pathname = () => {
+    if (location.pathname.startsWith("users/vehicles")) {
+      return 1;
+    } else if (location.pathname.startsWith("users/purchases")) {
+      return 2;
+    }
+    return 0;
   };
+
   function a11yProps(index) {
     return {
       id: `simple-tab-${index}`,
@@ -21,11 +28,7 @@ export default function UsersLayout() {
     <>
       <Box sx={{ width: "100%" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            aria-label="basic tabs example"
-            value={value}
-            onChange={handleChange}
-          >
+          <Tabs aria-label="basic tabs example" value={pathname}>
             <Tab
               label="Account Details"
               component={NavLink}
