@@ -6,29 +6,6 @@ export const userDataSlice = createSlice({
   initialState: {
     users: [
       {
-        id: "8321c2f8-3007-11ee-be56-0242ac120002",
-        first: "Kristie",
-        last: "Patterson",
-        email: "test@gmail.com",
-        phone: "777-777-7777",
-        vehicle_subs: [
-          {
-            make: "Mazda",
-            model: "cx5",
-            licensePlateNo: "123ABC",
-            id: "6794b415-3af9-43f0-ac05-8ae08192cda8",
-          },
-        ],
-        purchase_history: [
-          {
-            date: new Date().toDateString(),
-            amount: 5,
-            id: 1,
-            note: "car wash",
-          },
-        ],
-      },
-      {
         id: "fcb14202-bf8b-4f82-81b1-34491d4402e2",
         first: "John",
         last: "Doe",
@@ -51,6 +28,29 @@ export const userDataSlice = createSlice({
           },
         ],
       },
+      {
+        id: "8321c2f8-3007-11ee-be56-0242ac120002",
+        first: "Kristie",
+        last: "Patterson",
+        email: "test@gmail.com",
+        phone: "777-777-7777",
+        vehicle_subs: [
+          {
+            make: "Mazda",
+            model: "cx5",
+            licensePlateNo: "123ABC",
+            id: "6794b415-3af9-43f0-ac05-8ae08192cda8",
+          },
+        ],
+        purchase_history: [
+          {
+            date: new Date().toDateString(),
+            amount: 5,
+            id: 1,
+            note: "car wash",
+          },
+        ],
+      },
     ],
   },
   reducers: {
@@ -59,12 +59,23 @@ export const userDataSlice = createSlice({
       state.users[foundIndex] = action.payload;
     },
     addUser: (state, action) => {
-      state.users.push({
+      let users = state.users;
+      users.push({
         ...action.payload,
         id: uuidv4(),
         purchase_history: [],
         vehicle_subs: [],
       });
+      users.sort((a, b) => {
+        if (a.last.toLowerCase() < b.last.toLowerCase()) {
+          return -1;
+        }
+        if (a.last.toLowerCase() > b.last.toLowerCase()) {
+          return 1;
+        }
+        return 0;
+      });
+      state.users = users;
     },
     deleteUser: (state, action) => {
       let foundIndex = state.users.findIndex((x) => x.id === action.payload);

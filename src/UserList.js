@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,11 +10,25 @@ import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 import "./styles/UserList.css";
 
 const UserList = () => {
   const { users } = useSelector((state) => state.userData);
+  const [filterText, setFilterText] = useState("");
+
+  const checkFilter = ({ first, last }) => {
+    if (filterText.length < 1) {
+      return true;
+    } else if (
+      first.toLowerCase().startsWith(filterText.toLowerCase()) ||
+      last.toLowerCase().startsWith(filterText.toLowerCase())
+    ) {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <div>
@@ -24,34 +39,47 @@ const UserList = () => {
               <TableCell className="header">Last Name</TableCell>
               <TableCell className="header">First Name</TableCell>
               <TableCell className="header">User Id</TableCell>
-              <TableCell className="header">{""}</TableCell>
+              <TableCell className="header">
+                <TextField
+                  id="standard-basic"
+                  label="Filter"
+                  variant="standard"
+                  value={filterText}
+                  onChange={(e) => setFilterText(e.target.value)}
+                />
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => (
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                component={Link}
-                to={`/users/${user.id}`}
-                className="link"
-                key={user.id}
-              >
-                <TableCell component="th" scope="row">
-                  {user.last}
-                </TableCell>
-                <TableCell>{user.first}</TableCell>
-                <TableCell component="th" scope="row">
-                  {user.id}
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  <Button variant="text">See details</Button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {users.map((user) => {
+              if (checkFilter(user)) {
+                return (
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    component={Link}
+                    to={`/users/${user.id}`}
+                    className="link"
+                    key={user.id}
+                  >
+                    <TableCell component="th" scope="row">
+                      {user.last}
+                    </TableCell>
+                    <TableCell>{user.first}</TableCell>
+                    <TableCell component="th" scope="row">
+                      {user.id}
+                    </TableCell>
+                    <TableCell component="th" scope="row">
+                      <Button variant="text">See details</Button>
+                    </TableCell>
+                  </TableRow>
+                );
+              }
+              return "";
+            })}
           </TableBody>
         </Table>
       </TableContainer>
-      <Link to="add" className="addUser">
+      <Link to="/addUser" className="addUser">
         <p>Add User</p>
         <AddCircleOutlineIcon />
       </Link>

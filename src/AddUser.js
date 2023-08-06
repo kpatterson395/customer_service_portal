@@ -38,7 +38,7 @@ const AddUser = () => {
           email: email.value,
         })
       );
-      navigate(`/users`);
+      navigate(`/userlist`);
     }
   };
 
