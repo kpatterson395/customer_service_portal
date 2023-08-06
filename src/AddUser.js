@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { addUser } from "./redux/userData";
 import Box from "@mui/material/Box";
 
+import { validatePhone, validateEmail } from "./helpers";
+
 const AddUser = () => {
   const [first, setFirst] = useState({ value: "", error: false });
   const [last, setLast] = useState({ value: "", error: false });
@@ -19,16 +21,14 @@ const AddUser = () => {
     e.preventDefault();
     setLast({ ...last, error: last.value.length < 1 });
     setFirst({ ...first, error: first.value.length < 1 });
-    let phoneReg = /^\d{3}-\d{3}-\d{4}$/;
-    setPhone({ ...phone, error: !phoneReg.test(phone.value) });
-    let emailReg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    setEmail({ ...email, error: !emailReg.test(email.value) });
+    setPhone({ ...phone, error: validatePhone(phone) });
+    setEmail({ ...email, error: validateEmail(email) });
 
     let err =
       last.value.length < 1 ||
       first.value.length < 1 ||
-      !phoneReg.test(phone.value) ||
-      !emailReg.test(email.value);
+      validatePhone(phone) ||
+      validateEmail(email);
     if (!err) {
       dispatch(
         addUser({

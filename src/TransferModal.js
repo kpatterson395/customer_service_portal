@@ -53,6 +53,7 @@ const TransferModal = ({ open, setOpen, currentUser, vehicleId }) => {
             >
               {validUsers.map((user) => (
                 <MenuItem
+                  key={user.id}
                   value={user.id}
                 >{`${user.last}, ${user.first}`}</MenuItem>
               ))}

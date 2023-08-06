@@ -23,6 +23,8 @@ import Button from "@mui/material/Button";
 import MoveDownIcon from "@mui/icons-material/MoveDown";
 import Tooltip from "@mui/material/Tooltip";
 import DeleteConfirm from "./DeleteConfirm";
+import EditableForm from "./EditableForm";
+import AddFormRow from "./AddFormRow";
 
 const VehicleSubs = () => {
   const { id } = useParams();
@@ -59,83 +61,35 @@ const VehicleSubs = () => {
     setDeleteOpen(false);
   };
 
-  const handleOpen = (id) => {
+  const handleTransferOpen = (id) => {
     setTransferVehicle(id);
     setOpen(true);
   };
 
   const handleSubmit = () => {
-    dispatch(
-      addVehicleSub({
-        userId: id,
-        newVehicle: {
-          make: newMake,
-          model: newModel,
-          licensePlateNo: newLicense,
-        },
-      })
-    );
-    setShowAdd(false);
-    setNewMake("");
-    setNewModel("");
-    setNewLicense("");
+    if (newMake && newModel && newLicense) {
+      dispatch(
+        addVehicleSub({
+          userId: id,
+          newVehicle: {
+            make: newMake,
+            model: newModel,
+            licensePlateNo: newLicense,
+          },
+        })
+      );
+      setShowAdd(false);
+      setNewMake("");
+      setNewModel("");
+      setNewLicense("");
+    }
   };
 
   const handleSubmitChanges = () => {
-    dispatch(editVehicleSub({ userId: id, editVehicle }));
-    setEditVehicle({});
-  };
-
-  const returnEditable = () => {
-    return (
-      <TableRow key={editVehicle.id}>
-        <TableCell>
-          <TextField
-            required
-            size="small"
-            id="outlined-required"
-            label="Car make"
-            value={editVehicle.make}
-            onChange={(e) =>
-              setEditVehicle({ ...editVehicle, make: e.target.value })
-            }
-          />
-        </TableCell>
-        <TableCell align="right">
-          <TextField
-            required
-            size="small"
-            id="outlined-required"
-            label="Car Model"
-            value={editVehicle.model}
-            onChange={(e) =>
-              setEditVehicle({ ...editVehicle, model: e.target.value })
-            }
-          />
-        </TableCell>
-        <TableCell align="right">
-          <TextField
-            required
-            size="small"
-            id="outlined-required"
-            label="Car Model"
-            value={editVehicle.licensePlateNo}
-            onChange={(e) =>
-              setEditVehicle({
-                ...editVehicle,
-                licensePlateNo: e.target.value,
-              })
-            }
-          />
-        </TableCell>
-        <TableCell>
-          <Button onClick={handleSubmitChanges}>Submit Changes</Button>
-          <Button color="error" onClick={() => setEditVehicle({})}>
-            Cancel
-          </Button>
-        </TableCell>
-      </TableRow>
-    );
+    if (editVehicle.make && editVehicle.model && editVehicle.licensePlateNo) {
+      dispatch(editVehicleSub({ userId: id, editVehicle }));
+      setEditVehicle({});
+    }
   };
 
   return (
@@ -154,7 +108,14 @@ const VehicleSubs = () => {
             {user.vehicle_subs &&
               user.vehicle_subs.map((v) => {
                 if (v.id === editVehicle.id) {
-                  return returnEditable();
+                  return (
+                    <EditableForm
+                      key={v.id}
+                      editVehicle={editVehicle}
+                      setEditVehicle={setEditVehicle}
+                      handleSubmitChanges={handleSubmitChanges}
+                    />
+                  );
                 }
                 return (
                   <TableRow key={v.id}>
@@ -165,7 +126,7 @@ const VehicleSubs = () => {
                       <Tooltip title="Transfer Vehicle">
                         <MoveDownIcon
                           className="clickable"
-                          onClick={() => handleOpen(v.id)}
+                          onClick={() => handleTransferOpen(v.id)}
                         />
                       </Tooltip>
 
@@ -190,44 +151,17 @@ const VehicleSubs = () => {
                 );
               })}
             {showAdd && (
-              <TableRow>
-                <TableCell>
-                  <TextField
-                    required
-                    size="small"
-                    id="outlined-required"
-                    label="Car make"
-                    value={newMake}
-                    onChange={(e) => setNewMake(e.target.value)}
-                  />
-                </TableCell>
-                <TableCell align="right">
-                  <TextField
-                    required
-                    size="small"
-                    id="outlined-required"
-                    label="Car Model"
-                    value={newModel}
-                    onChange={(e) => setNewModel(e.target.value)}
-                  />
-                </TableCell>
-                <TableCell align="right">
-                  <TextField
-                    required
-                    size="small"
-                    id="outlined-required"
-                    label="Car License"
-                    value={newLicense}
-                    onChange={(e) => setNewLicense(e.target.value)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Button onClick={handleSubmit}>Add Vehicle</Button>
-                  <Button color="error" onClick={() => setShowAdd(!showAdd)}>
-                    Exit
-                  </Button>
-                </TableCell>
-              </TableRow>
+              <AddFormRow
+                newMake={newMake}
+                setNewMake={setNewMake}
+                newModel={newModel}
+                setNewModel={setNewModel}
+                newLicense={newLicense}
+                setNewLicense={setNewLicense}
+                handleSubmit={handleSubmit}
+                setShowAdd={setShowAdd}
+                showAdd={showAdd}
+              />
             )}
           </TableBody>
         </Table>

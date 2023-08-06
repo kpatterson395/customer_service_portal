@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 
 import { useState } from "react";
 import { editUser } from "./redux/userData";
+import { validatePhone, validateEmail } from "./helpers";
 
 const EditUser = () => {
   const { id } = useParams();
@@ -24,16 +25,14 @@ const EditUser = () => {
 
     setLast({ ...last, error: last.value.length < 1 });
     setFirst({ ...first, error: first.value.length < 1 });
-    let phoneReg = /^\d{3}-\d{3}-\d{4}$/;
-    setPhone({ ...phone, error: !phoneReg.test(phone.value) });
-    let emailReg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    setEmail({ ...email, error: !emailReg.test(email.value) });
+    setPhone({ ...phone, error: validatePhone(phone) });
+    setEmail({ ...email, error: validateEmail(email) });
 
     let err =
       last.value.length < 1 ||
       first.value.length < 1 ||
-      !phoneReg.test(phone.value) ||
-      !emailReg.test(email.value);
+      validatePhone(phone) ||
+      validateEmail(email);
     if (!err) {
       dispatch(
         editUser({
