@@ -31,6 +31,7 @@ const UserList = () => {
                 component={Link}
                 to={user.id}
                 className="link"
+                key={user.id}
               >
                 <TableCell component="th" scope="row">
                   {user.last}
