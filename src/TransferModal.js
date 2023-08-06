@@ -46,13 +46,15 @@ const TransferModal = ({ open, setOpen, currentUser, vehicleId }) => {
           <FormControl fullWidth>
             {/* <InputLabel>User</InputLabel> */}
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              aria-label="User"
+              labelId="user"
+              id="user"
               value={transferUser}
               onChange={handleChange}
             >
               {validUsers.map((user) => (
                 <MenuItem
+                  aria-label="User-option"
                   key={user.id}
                   value={user.id}
                 >{`${user.last}, ${user.first}`}</MenuItem>

@@ -17,7 +17,7 @@ const UserDetails = () => {
 
   const handleDelete = () => {
     dispatch(deleteUser(id));
-    navigate("/users");
+    navigate("/userlist");
   };
 
   const handleOpen = () => {

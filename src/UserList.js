@@ -56,9 +56,6 @@ const UserList = () => {
                 return (
                   <TableRow
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    component={Link}
-                    to={`/users/${user.id}`}
-                    className="link"
                     key={user.id}
                   >
                     <TableCell component="th" scope="row">
@@ -69,7 +66,14 @@ const UserList = () => {
                       {user.id}
                     </TableCell>
                     <TableCell component="th" scope="row">
-                      <Button variant="text">See details</Button>
+                      <Button
+                        variant="text"
+                        component={Link}
+                        to={`/users/${user.id}`}
+                        className="link"
+                      >
+                        See details
+                      </Button>
                     </TableCell>
                   </TableRow>
                 );

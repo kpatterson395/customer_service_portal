@@ -34,6 +34,8 @@ function ResponsiveDrawer(props) {
   const pathname = () => {
     if (location.pathname.startsWith("/userlist")) {
       return "Users";
+    } else if (location.pathname.startsWith("/addUser")) {
+      return "Add New User";
     } else if (location.pathname.startsWith("/users") && params.id) {
       let user = users.find((x) => x.id === params.id);
       return `Account: ${user.first} ${user.last}`;

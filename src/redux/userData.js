@@ -30,8 +30,8 @@ export const userDataSlice = createSlice({
       },
       {
         id: "8321c2f8-3007-11ee-be56-0242ac120002",
-        first: "Kristie",
-        last: "Patterson",
+        first: "Jane",
+        last: "Smith",
         email: "test@gmail.com",
         phone: "777-777-7777",
         vehicle_subs: [

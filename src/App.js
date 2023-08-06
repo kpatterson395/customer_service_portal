@@ -6,6 +6,8 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
+  useRouteError,
+  Link,
 } from "react-router-dom";
 import UserDetails from "./UserDetails";
 import RootLayout from "./Layouts/RootLayout";
@@ -20,9 +22,21 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<Home />} />
-      <Route path="userlist" element={<UserList />} />
-      <Route path="addUser" element={<AddUser />} />
-      <Route path="users" element={<UsersLayout />}>
+      <Route
+        path="userlist"
+        element={<UserList />}
+        errorElement={<ErrorBoundary />}
+      />
+      <Route
+        path="addUser"
+        element={<AddUser />}
+        errorElement={<ErrorBoundary />}
+      />
+      <Route
+        path="users"
+        element={<UsersLayout />}
+        errorElement={<ErrorBoundary />}
+      >
         <Route path="edit/:id" element={<EditUser />} />
         <Route path=":id" element={<UserDetails />} />
         <Route path="vehicles/:id" element={<VehicleSubs />} />
@@ -35,6 +49,16 @@ const router = createBrowserRouter(
 
 function App() {
   return <RouterProvider router={router} />;
+}
+
+function ErrorBoundary() {
+  let error = useRouteError();
+  console.error(error);
+  return (
+    <div>
+      Something went wrong! <Link to="/">Home</Link>
+    </div>
+  );
 }
 
 export default App;
