@@ -14,23 +14,38 @@ const EditUser = () => {
   const { users } = useSelector((state) => state.userData);
   let user = users.find((x) => x.id === id);
 
-  const [first, setFirst] = useState(user.first);
-  const [last, setLast] = useState(user.last);
-  const [phone, setPhone] = useState(user.phone);
-  const [email, setEmail] = useState(user.email);
+  const [first, setFirst] = useState({ value: user.first, error: false });
+  const [last, setLast] = useState({ value: user.last, error: false });
+  const [phone, setPhone] = useState({ value: user.phone, error: false });
+  const [email, setEmail] = useState({ value: user.email, error: false });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(
-      editUser({
-        id,
-        first,
-        last,
-        phone,
-        email,
-      })
-    );
-    navigate(`/users/${id}`);
+
+    setLast({ ...last, error: last.value.length < 1 });
+    setFirst({ ...first, error: first.value.length < 1 });
+    let phoneReg = /^\d{3}-\d{3}-\d{4}$/;
+    setPhone({ ...phone, error: !phoneReg.test(phone.value) });
+    let emailReg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    setEmail({ ...email, error: !emailReg.test(email.value) });
+
+    let err =
+      last.value.length < 1 ||
+      first.value.length < 1 ||
+      !phoneReg.test(phone.value) ||
+      !emailReg.test(email.value);
+    if (!err) {
+      dispatch(
+        editUser({
+          id,
+          first: first.value,
+          last: last.value,
+          phone: phone.value,
+          email: email.value,
+        })
+      );
+      navigate(`/users/${id}`);
+    }
   };
 
   return (
@@ -45,31 +60,39 @@ const EditUser = () => {
       <div>
         <TextField
           required
+          error={first.error}
           id="outlined-required"
           label="First Name"
-          value={first}
-          onChange={(e) => setFirst(e.target.value)}
+          value={first.value}
+          onChange={(e) => setFirst({ ...first, value: e.target.value })}
+          helperText={first.error && "Must enter a first name."}
         />
         <TextField
           required
+          error={last.error}
           id="outlined-required"
           label="Last Name"
-          value={last}
-          onChange={(e) => setLast(e.target.value)}
+          value={last.value}
+          onChange={(e) => setLast({ ...last, value: e.target.value })}
+          helperText={last.error && "Must enter a last name."}
         />
         <TextField
           required
           id="outlined-required"
           label="Phone Number"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          error={phone.error}
+          value={phone.value}
+          onChange={(e) => setPhone({ ...phone, value: e.target.value })}
+          helperText={phone.error && "Must enter in xxx-xxx-xxxx format"}
         />
         <TextField
           required
           id="outlined-required"
           label="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          error={email.error}
+          value={email.value}
+          onChange={(e) => setEmail({ ...email, value: e.target.value })}
+          helperText={email.error && "Must enter in a valid email"}
         />
         <Button type="submit">Save Changes</Button>
       </div>

@@ -29,7 +29,6 @@ const AddUser = () => {
       first.value.length < 1 ||
       !phoneReg.test(phone.value) ||
       !emailReg.test(email.value);
-    console.log("err", err);
     if (!err) {
       dispatch(
         addUser({

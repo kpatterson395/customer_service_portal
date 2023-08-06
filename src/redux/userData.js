@@ -9,7 +9,7 @@ export const userDataSlice = createSlice({
         first: "Kristie",
         last: "Patterson",
         email: "test@gmail.com",
-        phone: "7777777777",
+        phone: "777-777-7777",
         vehicle_subs: [
           {
             make: "Mazda",
@@ -32,7 +32,7 @@ export const userDataSlice = createSlice({
         first: "John",
         last: "Doe",
         email: "test2@gmail.com",
-        phone: "7777777771",
+        phone: "777-777-7771",
         vehicle_subs: [
           {
             make: "Mazda",
