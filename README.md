@@ -2,11 +2,17 @@
 
 This project provices a user-friendly portal to assist customers of a car wash loyalty application.
 
+Visit the [Live Version](https://customer-service-portal-khaki.vercel.app/)
+
 ## Features
 
-1.**Account Information Editing** The application allows users to modify customer account information. The user can update personal details, contact information, and other relevant data with ease. 2.**Account Management** The portal allows users to easily add new users or delete exisitng users. 3.**Balance Management and Transaction History** Users can view the overall balance on an account, as well as view transaction history. This allows the user to troubleshoot incorrect balances and answer customer questions regarding charges to the account. 4.**Vehicle Subscription Management and Transfers** Vehicle information can easily be managed for each customer. The user can edit vehicle information, add/delete vehicles, or transfer a vehicle to an existing customer.
+1.**Account Information Editing** The application allows users to modify customer account information. The user can update personal details, contact information, and other relevant data with ease.
 
-## Visit the [Live Version](https://customer-service-portal-khaki.vercel.app/):
+2.**Account Management** The portal allows users to easily add new users or delete exisitng users.
+
+3.**Balance Management and Transaction History** Users can view the overall balance on an account, as well as view transaction history. This allows the user to troubleshoot incorrect balances and answer customer questions regarding charges to the account.
+
+4.**Vehicle Subscription Management and Transfers** Vehicle information can easily be managed for each customer. The user can edit vehicle information, add/delete vehicles, or transfer a vehicle to an existing customer.
 
 ## Available Scripts
 
