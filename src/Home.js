@@ -16,7 +16,7 @@ const data = {
   balance:
     "The balance for a user is displayed on the Account Details page, after you have selected a user from the user list. If the balance is negative, the user has money credited to their acount. If the balance is positive, the user owes money on their account. To see further details on payments and charges made, visit the purchase history tab.",
   fix_balance:
-    "If the balance for a user is in correct, you can delete an invalid transaction from their account. An outstanding balance comes from a pending charge, so to remove the balance, find the user from the user list, select the purchase history tab, and find the transaction you want to remove.",
+    "If the balance for a user is incorrect, you can delete an invalid transaction from their account. An outstanding balance comes from a pending charge, so to remove the balance, find the user from the user list, select the purchase history tab, and find the transaction you want to remove.",
 };
 
 const Home = () => {
