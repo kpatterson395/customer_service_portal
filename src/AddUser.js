@@ -36,6 +36,7 @@ const AddUser = () => {
           last: last.value,
           phone: phone.value,
           email: email.value,
+          balance: 0,
         })
       );
       navigate(`/userlist`);

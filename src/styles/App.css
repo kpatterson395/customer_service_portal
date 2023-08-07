@@ -30,3 +30,11 @@
 .addItemButton p {
   padding-right: 5px;
 }
+
+.statusPending {
+  color: #7a240f;
+}
+
+.statusPaid {
+  color: #0f7a36;
+}

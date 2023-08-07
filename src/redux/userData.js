@@ -11,6 +11,7 @@ export const userDataSlice = createSlice({
         last: "Doe",
         email: "test2@gmail.com",
         phone: "777-777-7771",
+        balance: 0,
         vehicle_subs: [
           {
             make: "Mazda",
@@ -25,6 +26,7 @@ export const userDataSlice = createSlice({
             amount: 5,
             id: 1,
             note: "car wash",
+            status: "credit",
           },
         ],
       },
@@ -34,6 +36,7 @@ export const userDataSlice = createSlice({
         last: "Smith",
         email: "test@gmail.com",
         phone: "777-777-7777",
+        balance: 5,
         vehicle_subs: [
           {
             make: "Mazda",
@@ -48,6 +51,7 @@ export const userDataSlice = createSlice({
             amount: 5,
             id: 1,
             note: "car wash",
+            status: "pending",
           },
         ],
       },

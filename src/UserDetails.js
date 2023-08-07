@@ -38,6 +38,8 @@ const UserDetails = () => {
         {user.email}
         <h4>Phone:</h4>
         {user.phone}
+        <h4>Account Balance:</h4>
+        {user.balance}
       </div>
       <Stack direction="row" spacing={2}>
         <Button variant="contained" color="success">

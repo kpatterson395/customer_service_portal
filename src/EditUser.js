@@ -19,6 +19,7 @@ const EditUser = () => {
   const [last, setLast] = useState({ value: user.last, error: false });
   const [phone, setPhone] = useState({ value: user.phone, error: false });
   const [email, setEmail] = useState({ value: user.email, error: false });
+  const [balance, setBalance] = useState({ value: user.balance, error: false });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,12 +28,14 @@ const EditUser = () => {
     setFirst({ ...first, error: first.value.length < 1 });
     setPhone({ ...phone, error: validatePhone(phone) });
     setEmail({ ...email, error: validateEmail(email) });
+    setBalance({ ...balance, error: balance.value.length < 1 });
 
     let err =
       last.value.length < 1 ||
       first.value.length < 1 ||
       validatePhone(phone) ||
-      validateEmail(email);
+      validateEmail(email) ||
+      balance.value.length < 1;
     if (!err) {
       dispatch(
         editUser({
@@ -41,6 +44,7 @@ const EditUser = () => {
           last: last.value,
           phone: phone.value,
           email: email.value,
+          balance: balance.value,
         })
       );
       navigate(`/users/${id}`);
@@ -94,6 +98,17 @@ const EditUser = () => {
             value={email.value}
             onChange={(e) => setEmail({ ...email, value: e.target.value })}
             helperText={email.error && "Must enter in a valid email"}
+          />
+          <TextField
+            required
+            id="outlined-required"
+            label="Balance"
+            type="number"
+            error={balance.error}
+            value={balance.value}
+            disabled
+            onChange={(e) => setBalance({ ...balance, value: e.target.value })}
+            helperText={balance.error && "Must enter an amount"}
           />
         </div>
 

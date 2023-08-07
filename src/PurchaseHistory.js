@@ -20,6 +20,7 @@ import Tooltip from "@mui/material/Tooltip";
 import DeleteConfirm from "./DeleteConfirm";
 import EditableForm from "./EditableForm";
 import AddFormRow from "./AddFormRow";
+import { capitalizeFirst } from "./helpers";
 
 const PurchaseHistory = () => {
   const { id } = useParams();
@@ -31,6 +32,7 @@ const PurchaseHistory = () => {
   const [newAmount, setNewAmount] = useState();
   const [newNote, setNewNote] = useState("");
   const [newDate, setNewDate] = useState(new Date());
+  const [newStatus, setNewStatus] = useState("pending");
   const [editPurchase, setEditPurchase] = useState({});
   const [deleteId, setDeleteId] = useState();
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -61,6 +63,7 @@ const PurchaseHistory = () => {
           date: new Date(newDate).toDateString(),
           amount: newAmount,
           note: newNote,
+          status: newStatus,
         },
       })
     );
@@ -68,6 +71,7 @@ const PurchaseHistory = () => {
     setNewAmount(0);
     setNewNote("");
     setNewDate("");
+    setNewStatus("");
   };
 
   const handleSubmitChanges = () => {
@@ -85,6 +89,7 @@ const PurchaseHistory = () => {
             <TableRow>
               <TableCell align="right">Date</TableCell>
               <TableCell align="right">Amount</TableCell>
+              <TableCell align="right">Payment Status</TableCell>
               <TableCell align="right">Payment Note</TableCell>
               <TableCell></TableCell>
             </TableRow>
@@ -106,6 +111,17 @@ const PurchaseHistory = () => {
                   <TableRow key={p.id}>
                     <TableCell align="right">{p.date}</TableCell>
                     <TableCell align="right">{p.amount}</TableCell>
+                    <TableCell align="right">
+                      {p.status === "pending" ? (
+                        <em className="statusPending">
+                          {capitalizeFirst(p.status)}
+                        </em>
+                      ) : (
+                        <span className="statusPaid">
+                          {capitalizeFirst(p.status)}
+                        </span>
+                      )}
+                    </TableCell>
                     <TableCell align="right">{p.note}</TableCell>
                     <TableCell>
                       <Tooltip title="Edit">
@@ -133,6 +149,7 @@ const PurchaseHistory = () => {
                 items={{
                   date: { value: newDate, fn: setNewDate },
                   amount: { value: newAmount, fn: setNewAmount },
+                  status: { value: newStatus, fn: setNewStatus },
                   note: { value: newNote, fn: setNewNote },
                 }}
                 handleSubmit={handleSubmit}
