@@ -1,3 +1,14 @@
-.showData {
-  padding-top: 2em;
+.homeHero {
+  margin-bottom: 5em;
+}
+
+.faqOutput.MuiBox-root.css-0 {
+  margin-top: 1em;
+  padding: 1em;
+  width: 70%;
+  border: 1px solid rgba(189, 189, 189, 0.5);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }

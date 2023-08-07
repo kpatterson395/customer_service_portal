@@ -3,6 +3,8 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
 const data = {
   cancel:
@@ -20,12 +22,17 @@ const Home = () => {
     <div>
       <div className="homeHero">
         <h1>Welcome to the Customer Service Representative Portal</h1>
+        <p>
+          Get started by{" "}
+          <Link className="link" to="/userlist">
+            finding a user
+          </Link>
+          , or check out some of the frequently asked questions below!
+        </p>
       </div>
-
       <div>
         <h2>FAQ</h2>
         <Stack direction="row" spacing={1}>
-          <Chip label="Find a user" component={Link} to="/userlist" clickable />
           <Chip
             label="How do I cancel a user?"
             onClick={() => setShowData("cancel")}
@@ -45,7 +52,18 @@ const Home = () => {
             clickable
           />
         </Stack>
-        <div className="showData">{showData && data[showData]}</div>
+        {showData && (
+          <Box className="faqOutput">
+            <div className="showData">{showData && data[showData]}</div>
+            <Button
+              variant="text"
+              color="error"
+              onClick={() => setShowData("")}
+            >
+              Close
+            </Button>
+          </Box>
+        )}
       </div>
     </div>
   );
