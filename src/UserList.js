@@ -83,7 +83,8 @@ const UserList = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Link to="/addUser" className="addUser">
+
+      <Link to="/addUser" className="addItemButton">
         <p>Add User</p>
         <AddCircleOutlineIcon />
       </Link>

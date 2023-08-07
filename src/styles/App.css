@@ -11,3 +11,22 @@
 .header {
   font-weight: 800;
 }
+
+.addItemButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  text-decoration: none;
+  color: rgba(25, 118, 210, 0.8);
+  padding-right: 1em;
+}
+
+.addItemButton:hover {
+  cursor: pointer;
+  color: rgba(25, 118, 210, 1);
+}
+
+.addItemButton p {
+  padding-right: 5px;
+}

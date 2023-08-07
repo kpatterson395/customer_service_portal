@@ -143,10 +143,9 @@ const PurchaseHistory = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <div className="clickable plus">
-        {!showAdd && (
-          <AddCircleOutlineIcon onClick={() => setShowAdd(!showAdd)} />
-        )}
+      <div className="addItemButton" onClick={() => setShowAdd(!showAdd)}>
+        <p>Add Purchase</p>
+        {!showAdd && <AddCircleOutlineIcon />}
       </div>
       <DeleteConfirm
         open={deleteOpen}

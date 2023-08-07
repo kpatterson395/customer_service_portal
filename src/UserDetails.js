@@ -5,6 +5,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import DeleteConfirm from "./DeleteConfirm";
 import { useState } from "react";
+import "./styles/UserDetails.css";
 
 const UserDetails = () => {
   const { id } = useParams();
@@ -30,11 +31,14 @@ const UserDetails = () => {
 
   return (
     <div>
-      <p>
+      <div className="userDiv">
+        <h4>Name:</h4>
         {user.last}, {user.first}
-      </p>
-      <p>{user.email}</p>
-      <p>{user.phone}</p>
+        <h4>Email:</h4>
+        {user.email}
+        <h4>Phone:</h4>
+        {user.phone}
+      </div>
       <Stack direction="row" spacing={2}>
         <Button variant="contained" color="success">
           <Link

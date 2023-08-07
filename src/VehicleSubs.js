@@ -164,10 +164,9 @@ const VehicleSubs = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <div className="clickable plus">
-        {!showAdd && (
-          <AddCircleOutlineIcon onClick={() => setShowAdd(!showAdd)} />
-        )}
+      <div className="addItemButton" onClick={() => setShowAdd(!showAdd)}>
+        <p>Add Vehicle</p>
+        {!showAdd && <AddCircleOutlineIcon />}
       </div>
       <TransferModal
         open={open}

@@ -57,42 +57,46 @@ const EditUser = () => {
       onSubmit={handleSubmit}
     >
       <div>
-        <TextField
-          required
-          error={first.error}
-          id="outlined-required"
-          label="First Name"
-          value={first.value}
-          onChange={(e) => setFirst({ ...first, value: e.target.value })}
-          helperText={first.error && "Must enter a first name."}
-        />
-        <TextField
-          required
-          error={last.error}
-          id="outlined-required"
-          label="Last Name"
-          value={last.value}
-          onChange={(e) => setLast({ ...last, value: e.target.value })}
-          helperText={last.error && "Must enter a last name."}
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="Phone Number"
-          error={phone.error}
-          value={phone.value}
-          onChange={(e) => setPhone({ ...phone, value: e.target.value })}
-          helperText={phone.error && "Must enter in xxx-xxx-xxxx format"}
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="Email"
-          error={email.error}
-          value={email.value}
-          onChange={(e) => setEmail({ ...email, value: e.target.value })}
-          helperText={email.error && "Must enter in a valid email"}
-        />
+        <div>
+          <TextField
+            required
+            error={first.error}
+            id="outlined-required"
+            label="First Name"
+            value={first.value}
+            onChange={(e) => setFirst({ ...first, value: e.target.value })}
+            helperText={first.error && "Must enter a first name."}
+          />
+          <TextField
+            required
+            error={last.error}
+            id="outlined-required"
+            label="Last Name"
+            value={last.value}
+            onChange={(e) => setLast({ ...last, value: e.target.value })}
+            helperText={last.error && "Must enter a last name."}
+          />
+          <br />
+          <TextField
+            required
+            id="outlined-required"
+            label="Phone Number"
+            error={phone.error}
+            value={phone.value}
+            onChange={(e) => setPhone({ ...phone, value: e.target.value })}
+            helperText={phone.error && "Must enter in xxx-xxx-xxxx format"}
+          />
+          <TextField
+            required
+            id="outlined-required"
+            label="Email"
+            error={email.error}
+            value={email.value}
+            onChange={(e) => setEmail({ ...email, value: e.target.value })}
+            helperText={email.error && "Must enter in a valid email"}
+          />
+        </div>
+
         <Button type="submit">Save Changes</Button>
       </div>
     </Box>
