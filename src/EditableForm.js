@@ -12,7 +12,6 @@ const EditableForm = ({ editItems, setEditItems, handleSubmitChanges }) => {
   let items = Object.keys(editItems).filter((x) => x !== "id");
 
   const errorCheck = () => {
-    console.log(items, editItems);
     let err = items.some((item) => editItems[item].length < 0);
     if (!err) {
       handleSubmitChanges();
@@ -76,9 +75,13 @@ const EditableForm = ({ editItems, setEditItems, handleSubmitChanges }) => {
               }
               error={editItems[item].length < 1}
               disabled={item === "amount"}
-              onChange={(e) =>
-                setEditItems({ ...editItems, [item]: e.target.value })
-              }
+              onChange={(e) => {
+                if (type === "number" && isNaN(e.target.value)) {
+                  return;
+                } else {
+                  setEditItems({ ...editItems, [item]: e.target.value });
+                }
+              }}
               // helperText={
               //   editItems[item].length < 1 && "This is a required field."
               // }

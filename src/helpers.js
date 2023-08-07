@@ -28,8 +28,6 @@ export const updateBalance = (newPurchase, oldPurchase, balance) => {
 export const addToBalance = (newPurchase, currentBalance) => {
   if (newPurchase.status === "pending") {
     return Number(currentBalance) + Number(newPurchase.amount);
-  } else if ((newPurchase.status = "paid")) {
-    return Number(currentBalance) - Number(newPurchase.amount);
   }
   return currentBalance;
 };

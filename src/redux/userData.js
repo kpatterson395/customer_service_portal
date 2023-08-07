@@ -174,12 +174,14 @@ export const userDataSlice = createSlice({
           },
         ];
       }
-      //update the balance with new payment
-      let newBalance = addToBalance(
-        action.payload.newPurchase,
-        state.users[foundIndex].balance
-      );
-      state.users[foundIndex].balance = newBalance;
+      //update the balance with new payment if there is a pending charge
+      if (action.payload.newPurchase.status === "pending") {
+        let newBalance = addToBalance(
+          action.payload.newPurchase,
+          state.users[foundIndex].balance
+        );
+        state.users[foundIndex].balance = newBalance;
+      }
     },
     transferVehicleSub: ({ users }, { payload }) => {
       const { currentUser, transferUser, vehicleId } = payload;
