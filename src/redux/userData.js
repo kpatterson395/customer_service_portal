@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
+import { updateBalance, addToBalance } from "../helpers";
 
 export const userDataSlice = createSlice({
   name: "userData",
@@ -26,7 +27,7 @@ export const userDataSlice = createSlice({
             amount: 5,
             id: 1,
             note: "car wash",
-            status: "credit",
+            status: "paid",
           },
         ],
       },
@@ -127,8 +128,17 @@ export const userDataSlice = createSlice({
       let foundIndex = state.users.findIndex(
         (x) => x.id === action.payload.userId
       );
+      let foundUser = state.users[foundIndex];
       let subs = state.users[foundIndex].purchase_history;
       let foundSubIndex = subs.findIndex((x) => x.id === action.payload.id);
+      let foundPurchase = subs[foundSubIndex];
+
+      //if balance pending was removed, take out of overall balance
+      if (foundPurchase.status === "pending") {
+        foundUser.balance =
+          Number(foundUser.balance) - Number(foundPurchase.amountNumber);
+      }
+
       state.users[foundIndex].purchase_history.splice(foundSubIndex, 1);
     },
     editPurchaseHistory: (state, { payload }) => {
@@ -137,12 +147,20 @@ export const userDataSlice = createSlice({
       let foundSubIndex = user.purchase_history.findIndex(
         (x) => x.id === payload.editPurchase.id
       );
+      //update balance based on status changes
+      let newBalance = updateBalance(
+        payload.editPurchase,
+        user.purchase_history[foundSubIndex],
+        user.balance
+      );
+      user.balance = newBalance;
       user.purchase_history[foundSubIndex] = payload.editPurchase;
     },
     addPurchase: (state, action) => {
       let foundIndex = state.users.findIndex(
         (x) => x.id === action.payload.userId
       );
+      //add new purchase to user
       if (state.users[foundIndex].purchase_history) {
         state.users[foundIndex].purchase_history.push({
           ...action.payload.newPurchase,
@@ -156,6 +174,12 @@ export const userDataSlice = createSlice({
           },
         ];
       }
+      //update the balance with new payment
+      let newBalance = addToBalance(
+        action.payload.newPurchase,
+        state.users[foundIndex].balance
+      );
+      state.users[foundIndex].balance = newBalance;
     },
     transferVehicleSub: ({ users }, { payload }) => {
       const { currentUser, transferUser, vehicleId } = payload;

@@ -39,7 +39,9 @@ const UserDetails = () => {
         <h4>Phone:</h4>
         {user.phone}
         <h4>Account Balance:</h4>
-        {user.balance}
+        <span className={user.balance > 0 ? "statusPending" : "statusPaid"}>
+          {user.balance}
+        </span>
       </div>
       <Stack direction="row" spacing={2}>
         <Button variant="contained" color="success">

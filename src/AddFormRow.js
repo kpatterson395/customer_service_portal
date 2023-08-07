@@ -11,7 +11,7 @@ const AddFormRow = ({ formType, items, handleSubmit, setShowAdd, showAdd }) => {
 
   const errorCheck = () => {
     let valid = keys.every(
-      (key) => items[key].value && items[key].value.length > 1
+      (key) => items[key].value && items[key].value.length > 0
     );
     if (valid) {
       handleSubmit();
@@ -29,9 +29,6 @@ const AddFormRow = ({ formType, items, handleSubmit, setShowAdd, showAdd }) => {
           label="Status"
           error={items[key].value.length < 1}
           onChange={(e) => items[key].fn(e.target.value)}
-          helperText={
-            items[key].value.length < 1 && "This is a required field."
-          }
         >
           <MenuItem aria-label="status-option" value="pending">
             Pending
@@ -39,9 +36,7 @@ const AddFormRow = ({ formType, items, handleSubmit, setShowAdd, showAdd }) => {
           <MenuItem aria-label="status-option" value="paid">
             Paid
           </MenuItem>
-          <MenuItem aria-label="status-option" value="credit">
-            Credit
-          </MenuItem>
+          \
         </Select>
       </TableCell>
     );
@@ -62,6 +57,7 @@ const AddFormRow = ({ formType, items, handleSubmit, setShowAdd, showAdd }) => {
               size="small"
               id="outlined-required"
               type={type}
+              required
               label={key !== "date" && capitalizeFirst(key)}
               value={items[key].value}
               error={!items[key].value}

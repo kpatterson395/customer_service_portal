@@ -10,8 +10,9 @@ const EditableForm = ({ editItems, setEditItems, handleSubmitChanges }) => {
   let items = Object.keys(editItems).filter((x) => x !== "id");
 
   const errorCheck = () => {
-    let valid = items.every((item) => editItems[item].length > 1);
-    if (valid) {
+    console.log(items, editItems);
+    let err = items.some((item) => editItems[item].length < 0);
+    if (!err) {
       handleSubmitChanges();
     }
   };
@@ -30,16 +31,12 @@ const EditableForm = ({ editItems, setEditItems, handleSubmitChanges }) => {
           onChange={(e) =>
             setEditItems({ ...editItems, [item]: e.target.value })
           }
-          helperText={editItems[item].length < 1 && "This is a required field."}
         >
           <MenuItem aria-label="status-option" value="pending">
             Pending
           </MenuItem>
           <MenuItem aria-label="status-option" value="paid">
             Paid
-          </MenuItem>
-          <MenuItem aria-label="status-option" value="credit">
-            Credit
           </MenuItem>
         </Select>
       </TableCell>
@@ -64,6 +61,7 @@ const EditableForm = ({ editItems, setEditItems, handleSubmitChanges }) => {
               label={capitalizeFirst(item)}
               value={editItems[item]}
               error={editItems[item].length < 1}
+              disabled={item === "amount"}
               onChange={(e) =>
                 setEditItems({ ...editItems, [item]: e.target.value })
               }
