@@ -8,15 +8,10 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 
-const AddFormRow = ({
-  formType,
-  items,
-  handleSubmit,
-
-  handleCancelAdd,
-}) => {
+const AddFormRow = ({ formType, items, handleSubmit, handleCancelAdd }) => {
   let keys = Object.keys(items);
 
+  // check that all items exist before submitting
   const errorCheck = () => {
     let valid = keys.every(
       (key) => items[key].value && items[key].value.length > 0
@@ -47,7 +42,6 @@ const AddFormRow = ({
             <MenuItem aria-label="status-option" value="paid">
               Paid
             </MenuItem>
-            \
           </Select>
         </FormControl>
       </TableCell>
@@ -76,6 +70,7 @@ const AddFormRow = ({
               value={items[key].value}
               error={!items[key].value}
               onChange={(e) => items[key].fn(e.target.value)}
+              // remove helper text for now - too cluttered
               // helperText={!items[key].value && "This is a required field."}
             />
           </TableCell>

@@ -22,12 +22,6 @@ const persistedReducer = persistReducer(
   })
 );
 
-// export default configureStore({
-//   reducer: {
-//     userData: userDataReducer,
-//   },
-// });
-
 const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>

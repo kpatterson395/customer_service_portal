@@ -11,6 +11,7 @@ import FormControl from "@mui/material/FormControl";
 const EditableForm = ({ editItems, setEditItems, handleSubmitChanges }) => {
   let items = Object.keys(editItems).filter((x) => x !== "id");
 
+  // check for that inputs have data before submitting data
   const errorCheck = () => {
     let err = items.some((item) => editItems[item].length < 0);
     if (!err) {
@@ -47,6 +48,7 @@ const EditableForm = ({ editItems, setEditItems, handleSubmitChanges }) => {
     );
   };
 
+  // date stored as javascript date, needs to be converted to string for date textfield
   const convertDate = (date) => {
     let t = new Date(date);
     return t.toISOString().split("T")[0];
@@ -57,9 +59,9 @@ const EditableForm = ({ editItems, setEditItems, handleSubmitChanges }) => {
       {items.map((item, i) => {
         let type = "text";
         let align = i !== 0 ? "right" : "inherit";
+        //default input is text
         if (item === "amount") type = "number";
         if (item === "date") type = "date";
-
         if (item === "status") {
           return statusSelect(item);
         }
@@ -82,6 +84,7 @@ const EditableForm = ({ editItems, setEditItems, handleSubmitChanges }) => {
                   setEditItems({ ...editItems, [item]: e.target.value });
                 }
               }}
+              // take out helper text for now - page too cluttered
               // helperText={
               //   editItems[item].length < 1 && "This is a required field."
               // }

@@ -67,11 +67,7 @@ const PurchaseHistory = () => {
         },
       })
     );
-    setShowAdd(false);
-    setNewAmount(0);
-    setNewNote("");
-    setNewDate("");
-    setNewStatus("pending");
+    handleCancelAdd();
   };
 
   const handleSubmitChanges = () => {
@@ -151,6 +147,7 @@ const PurchaseHistory = () => {
                   </TableRow>
                 );
               })}
+            {/* Show form to add purchase */}
             {showAdd && (
               <AddFormRow
                 formType="Purchase"
@@ -167,6 +164,7 @@ const PurchaseHistory = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      {/* show form to add purchase */}
       {!showAdd && (
         <div className="addItemButton" onClick={() => setShowAdd(true)}>
           <p>Add Purchase</p>

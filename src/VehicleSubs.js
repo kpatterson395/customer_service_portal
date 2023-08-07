@@ -76,10 +76,7 @@ const VehicleSubs = () => {
           },
         })
       );
-      setShowAdd(false);
-      setNewMake("");
-      setNewModel("");
-      setNewLicense("");
+      handleCancelAdd();
     }
   };
 
@@ -155,6 +152,7 @@ const VehicleSubs = () => {
                   </TableRow>
                 );
               })}
+            {/* render form to add vehicle */}
             {showAdd && (
               <AddFormRow
                 formType="Vehicle"
@@ -170,6 +168,7 @@ const VehicleSubs = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      {/* Show add vehicle form */}
       {!showAdd && (
         <div className="addItemButton" onClick={() => setShowAdd(true)}>
           <p>Add Vehicle</p>

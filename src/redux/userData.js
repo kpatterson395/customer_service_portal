@@ -60,6 +60,7 @@ export const userDataSlice = createSlice({
   },
   reducers: {
     editUser: (state, action) => {
+      // find user and update account information - vehicles and purchases won't update here
       let foundIndex = state.users.findIndex((x) => x.id === action.payload.id);
       let currentUser = state.users[foundIndex];
       state.users[foundIndex] = {
@@ -70,12 +71,14 @@ export const userDataSlice = createSlice({
     },
     addUser: (state, action) => {
       let users = state.users;
+      // add new user to users arr - initialize with empty purchases and vehicles
       users.push({
         ...action.payload,
         id: uuidv4(),
         purchase_history: [],
         vehicle_subs: [],
       });
+      // sort in alphabetical order for ease of display
       users.sort((a, b) => {
         if (a.last.toLowerCase() < b.last.toLowerCase()) {
           return -1;
@@ -88,10 +91,12 @@ export const userDataSlice = createSlice({
       state.users = users;
     },
     deleteUser: (state, action) => {
+      // delete entire user
       let foundIndex = state.users.findIndex((x) => x.id === action.payload);
       state.users.splice(foundIndex, 1);
     },
     deleteVehicleSub: (state, action) => {
+      //delete vehicile from a users vehicle arr
       let foundIndex = state.users.findIndex(
         (x) => x.id === action.payload.userId
       );
@@ -102,6 +107,7 @@ export const userDataSlice = createSlice({
       state.users[foundIndex].vehicle_subs.splice(foundSubIndex, 1);
     },
     addVehicleSub: (state, action) => {
+      //add vehicle to given user's vehicle arr
       let foundIndex = state.users.findIndex(
         (x) => x.id === action.payload.userId
       );
@@ -117,6 +123,7 @@ export const userDataSlice = createSlice({
       }
     },
     editVehicleSub: (state, { payload }) => {
+      //edit a vehicle sub for a given user
       let foundIndex = state.users.findIndex((x) => x.id === payload.userId);
       let user = state.users[foundIndex];
       let foundVehicleIndex = user.vehicle_subs.findIndex(
@@ -125,6 +132,7 @@ export const userDataSlice = createSlice({
       user.vehicle_subs[foundVehicleIndex] = payload.editVehicle;
     },
     deletePurchaseHistory: (state, action) => {
+      //delete a purchase from user's purchase arr
       let foundIndex = state.users.findIndex(
         (x) => x.id === action.payload.userId
       );
@@ -142,6 +150,7 @@ export const userDataSlice = createSlice({
       state.users[foundIndex].purchase_history.splice(foundSubIndex, 1);
     },
     editPurchaseHistory: (state, { payload }) => {
+      //edit purchase item for given user
       let foundIndex = state.users.findIndex((x) => x.id === payload.userId);
       let user = state.users[foundIndex];
       let foundSubIndex = user.purchase_history.findIndex(
@@ -184,6 +193,7 @@ export const userDataSlice = createSlice({
       }
     },
     transferVehicleSub: ({ users }, { payload }) => {
+      //transfer a vehicle from one user to a different user
       const { currentUser, transferUser, vehicleId } = payload;
       let currentUserIndex = users.findIndex((x) => x.id === currentUser);
       let vehicleIndex = users[currentUserIndex].vehicle_subs.findIndex(
