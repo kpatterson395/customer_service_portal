@@ -13,6 +13,10 @@ const data = {
     "To see recent purchases for a user, select the user from the user list and continue to their account overview page. From here, select purchase history from the menu. Here you can see a list of recent purchases, and make changes to recent purchses in event of error.",
   vehicle_sub:
     "To transfer a vehicle subscription, select the user from the user list and continue to their account overview page. From here, select the vehicle subscription option from the menu. Here you will see a list of vehicles subscribed to this user, and you can select the first icon to the right of each vehicle to transfer a vehicle to another registered user.",
+  balance:
+    "The balance for a user is displayed on the Account Details page, after you have selected a user from the user list. If the balance is negative, the user has money credited to their acount. If the balance is positive, the user owes money on their account. To see further details on payments and charges made, visit the purchase history tab.",
+  fix_balance:
+    "If the balance for a user is in correct, you can manually add a transaction for the user to credit their account. Find the user from the user list, select the purchase history tab, and click on the 'Add Purchase' button to the lower right of the table. Be sure to select payment type 'paid', and the money will credit their account.",
 };
 
 const Home = () => {
@@ -30,9 +34,9 @@ const Home = () => {
           , or check out some of the frequently asked questions below!
         </p>
       </div>
-      <div>
+      <div className="faq-section">
         <h2>FAQ</h2>
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row" spacing={1} useFlexGap flexWrap="wrap">
           <Chip
             label="How do I cancel a user?"
             onClick={() => setShowData("cancel")}
@@ -48,6 +52,18 @@ const Home = () => {
           <Chip
             label="How do I transfer a vehicle to a different user?"
             onClick={() => setShowData("vehicle_sub")}
+            variant="outlined"
+            clickable
+          />
+          <Chip
+            label="How do I see if my user has a balance?"
+            onClick={() => setShowData("balance")}
+            variant="outlined"
+            clickable
+          />
+          <Chip
+            label="How do I fix an incorrect balance for a user?"
+            onClick={() => setShowData("fix_balance")}
             variant="outlined"
             clickable
           />
