@@ -136,7 +136,7 @@ export const userDataSlice = createSlice({
       //if balance pending was removed, take out of overall balance
       if (foundPurchase.status === "pending") {
         foundUser.balance =
-          Number(foundUser.balance) - Number(foundPurchase.amountNumber);
+          Number(foundUser.balance) - Number(foundPurchase.amount);
       }
 
       state.users[foundIndex].purchase_history.splice(foundSubIndex, 1);

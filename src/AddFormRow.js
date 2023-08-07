@@ -5,6 +5,8 @@ import Button from "@mui/material/Button";
 import { capitalizeFirst } from "./helpers";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
 
 const AddFormRow = ({ formType, items, handleSubmit, setShowAdd, showAdd }) => {
   let keys = Object.keys(items);
@@ -21,48 +23,54 @@ const AddFormRow = ({ formType, items, handleSubmit, setShowAdd, showAdd }) => {
   const statusSelect = (key) => {
     return (
       <TableCell key={key} align="right">
-        <Select
-          size="small"
-          aria-label="transaction status"
-          id="status-select"
-          value={items[key].value}
-          label="Status"
-          error={items[key].value.length < 1}
-          onChange={(e) => items[key].fn(e.target.value)}
-        >
-          <MenuItem aria-label="status-option" value="pending">
-            Pending
-          </MenuItem>
-          <MenuItem aria-label="status-option" value="paid">
-            Paid
-          </MenuItem>
-          \
-        </Select>
+        <FormControl>
+          <InputLabel id="status-select-label">Status</InputLabel>
+          <Select
+            size="small"
+            aria-label="transaction status"
+            id="status-select"
+            labelId="status-select-label"
+            value={items[key].value}
+            label="Status"
+            error={items[key].value.length < 1}
+            onChange={(e) => items[key].fn(e.target.value)}
+          >
+            <MenuItem aria-label="status-option" value="pending">
+              Pending
+            </MenuItem>
+            <MenuItem aria-label="status-option" value="paid">
+              Paid
+            </MenuItem>
+            \
+          </Select>
+        </FormControl>
       </TableCell>
     );
   };
 
   return (
     <TableRow>
-      {keys.map((key) => {
+      {keys.map((key, i) => {
         let type = "text";
         if (key === "amount") type = "number";
         if (key === "date") type = "date";
         if (key === "status") {
           return statusSelect(key);
         }
+        let align = i !== 0 ? "right" : "inherit";
+
         return (
-          <TableCell key={key} align="right">
+          <TableCell key={key} align={align}>
             <TextField
               size="small"
               id="outlined-required"
               type={type}
               required
-              label={key !== "date" && capitalizeFirst(key)}
+              label={capitalizeFirst(key)}
               value={items[key].value}
               error={!items[key].value}
               onChange={(e) => items[key].fn(e.target.value)}
-              helperText={!items[key].value && "This is a required field."}
+              // helperText={!items[key].value && "This is a required field."}
             />
           </TableCell>
         );

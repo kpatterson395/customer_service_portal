@@ -29,9 +29,9 @@ const PurchaseHistory = () => {
   let user = users.find((x) => x.id === id);
 
   const [showAdd, setShowAdd] = useState(false);
-  const [newAmount, setNewAmount] = useState();
+  const [newAmount, setNewAmount] = useState(0);
   const [newNote, setNewNote] = useState("");
-  const [newDate, setNewDate] = useState(new Date());
+  const [newDate, setNewDate] = useState("2023-08-01");
   const [newStatus, setNewStatus] = useState("pending");
   const [editPurchase, setEditPurchase] = useState({});
   const [deleteId, setDeleteId] = useState();
@@ -62,8 +62,8 @@ const PurchaseHistory = () => {
         newPurchase: {
           date: new Date(newDate).toDateString(),
           amount: newAmount,
-          note: newNote,
           status: newStatus,
+          note: newNote,
         },
       })
     );
@@ -71,7 +71,7 @@ const PurchaseHistory = () => {
     setNewAmount(0);
     setNewNote("");
     setNewDate("");
-    setNewStatus("");
+    setNewStatus("pending");
   };
 
   const handleSubmitChanges = () => {
@@ -87,7 +87,7 @@ const PurchaseHistory = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="right">Date</TableCell>
+              <TableCell>Date</TableCell>
               <TableCell align="right">Amount</TableCell>
               <TableCell align="right">Payment Status</TableCell>
               <TableCell align="right">Payment Note</TableCell>
@@ -109,7 +109,7 @@ const PurchaseHistory = () => {
                 }
                 return (
                   <TableRow key={p.id}>
-                    <TableCell align="right">{p.date}</TableCell>
+                    <TableCell>{p.date}</TableCell>
                     <TableCell align="right">{p.amount}</TableCell>
                     <TableCell align="right">
                       {p.status === "pending" ? (
@@ -160,10 +160,12 @@ const PurchaseHistory = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <div className="addItemButton" onClick={() => setShowAdd(!showAdd)}>
-        <p>Add Purchase</p>
-        {!showAdd && <AddCircleOutlineIcon />}
-      </div>
+      {!showAdd && (
+        <div className="addItemButton" onClick={() => setShowAdd(!showAdd)}>
+          <p>Add Purchase</p>
+          <AddCircleOutlineIcon />
+        </div>
+      )}
       <DeleteConfirm
         open={deleteOpen}
         onClose={handleDeleteClose}
