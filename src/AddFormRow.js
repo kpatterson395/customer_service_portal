@@ -8,7 +8,13 @@ import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 
-const AddFormRow = ({ formType, items, handleSubmit, setShowAdd, showAdd }) => {
+const AddFormRow = ({
+  formType,
+  items,
+  handleSubmit,
+
+  handleCancelAdd,
+}) => {
   let keys = Object.keys(items);
 
   const errorCheck = () => {
@@ -78,7 +84,7 @@ const AddFormRow = ({ formType, items, handleSubmit, setShowAdd, showAdd }) => {
 
       <TableCell>
         <Button onClick={errorCheck}>Add {formType}</Button>
-        <Button color="error" onClick={() => setShowAdd(!showAdd)}>
+        <Button color="error" onClick={handleCancelAdd}>
           Exit
         </Button>
       </TableCell>

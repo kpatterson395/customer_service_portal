@@ -81,6 +81,14 @@ const PurchaseHistory = () => {
     }
   };
 
+  const handleCancelAdd = () => {
+    setShowAdd(false);
+    setNewAmount(0);
+    setNewNote("");
+    setNewDate("");
+    setNewStatus("pending");
+  };
+
   return (
     <div>
       <TableContainer component={Paper}>
@@ -153,15 +161,14 @@ const PurchaseHistory = () => {
                   note: { value: newNote, fn: setNewNote },
                 }}
                 handleSubmit={handleSubmit}
-                setShowAdd={setShowAdd}
-                showAdd={showAdd}
+                handleCancelAdd={handleCancelAdd}
               />
             )}
           </TableBody>
         </Table>
       </TableContainer>
       {!showAdd && (
-        <div className="addItemButton" onClick={() => setShowAdd(!showAdd)}>
+        <div className="addItemButton" onClick={() => setShowAdd(true)}>
           <p>Add Purchase</p>
           <AddCircleOutlineIcon />
         </div>

@@ -90,6 +90,13 @@ const VehicleSubs = () => {
     }
   };
 
+  const handleCancelAdd = () => {
+    setShowAdd(false);
+    setNewMake("");
+    setNewModel("");
+    setNewLicense("");
+  };
+
   return (
     <div>
       <TableContainer component={Paper}>
@@ -157,17 +164,18 @@ const VehicleSubs = () => {
                   license: { value: newLicense, fn: setNewLicense },
                 }}
                 handleSubmit={handleSubmit}
-                setShowAdd={setShowAdd}
-                showAdd={showAdd}
+                handleCancelAdd={handleCancelAdd}
               />
             )}
           </TableBody>
         </Table>
       </TableContainer>
-      <div className="addItemButton" onClick={() => setShowAdd(!showAdd)}>
-        <p>Add Vehicle</p>
-        {!showAdd && <AddCircleOutlineIcon />}
-      </div>
+      {!showAdd && (
+        <div className="addItemButton" onClick={() => setShowAdd(true)}>
+          <p>Add Vehicle</p>
+          <AddCircleOutlineIcon />
+        </div>
+      )}
       <TransferModal
         open={open}
         setOpen={setOpen}
